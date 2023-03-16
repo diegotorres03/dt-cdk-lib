@@ -4,8 +4,15 @@ const project = new awscdk.AwsCdkConstructLibrary({
   authorAddress: 'diegotorre0303s@gmail.com',
   cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',
-  name: '22-dt-cdk-lib',
+  name: 'dt-cdk-lib',
   repositoryUrl: 'https://github.com/diegotorre0303s/22-dt-cdk-lib.git',
+  keywords: ['aws', 'cdk'],
+
+
+  publishToPypi: {
+    distName: 'dt-cdk-lib',
+    module: 'cdk-constructs',
+  },
 
   // deps: [],                /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
