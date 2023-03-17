@@ -71,10 +71,10 @@ export class FunctionConstruct extends Construct {
   /**
    * here is where you add or reference the lambda code
    *
-   * @param {string} functionCode - function code in the target language as a string, 
+   * @param {string} functionCode - function code in the target language as a string,
    * or a ./path/to/file or s3://path/to/file
    * @param {FunctionOptions} options
-   * @return {*} 
+   * @return {*}
    * @memberof FunctionConstruct
    */
   handler(functionCode: string, options: FunctionOptions) {

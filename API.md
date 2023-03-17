@@ -210,7 +210,7 @@ new FunctionConstruct(scope: Construct, id: string)
 | --- | --- |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.createLayer">createLayer</a></code> | create a layer from local file, s3 url or existing layer construct. |
-| <code><a href="#dt-cdk-lib.FunctionConstruct.handler">handler</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.FunctionConstruct.handler">handler</a></code> | here is where you add or reference the lambda code. |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.useLayer">useLayer</a></code> | *No description.* |
 
 ---
@@ -253,9 +253,13 @@ local or s3 path to layer folder.
 public handler(functionCode: string, options: FunctionOptions): Function
 ```
 
+here is where you add or reference the lambda code.
+
 ###### `functionCode`<sup>Required</sup> <a name="functionCode" id="dt-cdk-lib.FunctionConstruct.handler.parameter.functionCode"></a>
 
 - *Type:* string
+
+function code in the target language as a string,  or a ./path/to/file or s3://path/to/file.
 
 ---
 
