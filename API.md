@@ -151,38 +151,5 @@ public readonly webappBucket: Bucket;
 
 
 
-## Classes <a name="Classes" id="Classes"></a>
-
-### Hello <a name="Hello" id="dt-cdk-lib.Hello"></a>
-
-#### Initializers <a name="Initializers" id="dt-cdk-lib.Hello.Initializer"></a>
-
-```typescript
-import { Hello } from 'dt-cdk-lib'
-
-new Hello()
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-
----
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#dt-cdk-lib.Hello.sayHello">sayHello</a></code> | *No description.* |
-
----
-
-##### `sayHello` <a name="sayHello" id="dt-cdk-lib.Hello.sayHello"></a>
-
-```typescript
-public sayHello(): string
-```
-
-
-
 
 
