@@ -10,6 +10,8 @@ const project = new awscdk.AwsCdkConstructLibrary({
   description: 'set of reusable cdk constructs to make comon tasks easier',
 
 
+  majorVersion: 1,
+
   publishToPypi: {
     distName: 'dt-cdk-lib',
     module: 'cdk-constructs',
