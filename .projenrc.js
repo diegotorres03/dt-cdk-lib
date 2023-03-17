@@ -7,7 +7,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   name: 'dt-cdk-lib',
   repositoryUrl: 'https://github.com/diegotorre0303s/22-dt-cdk-lib.git',
   keywords: ['aws', 'cdk'],
-  description: 'set of reusable cdk constructs to make comon tasks easier', 
+  description: 'set of reusable cdk constructs to make comon tasks easier',
 
 
   publishToPypi: {
