@@ -250,7 +250,7 @@ local or s3 path to layer folder.
 ##### `handler` <a name="handler" id="dt-cdk-lib.FunctionConstruct.handler"></a>
 
 ```typescript
-public handler(functionCode: string, options: FunctionOptions): Function
+public handler(functionCode: string, options?: FunctionOptions): Function
 ```
 
 here is where you add or reference the lambda code.
@@ -263,7 +263,7 @@ function code in the target language as a string, or a ./path/to/file or s3://pa
 
 ---
 
-###### `options`<sup>Required</sup> <a name="options" id="dt-cdk-lib.FunctionConstruct.handler.parameter.options"></a>
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.FunctionConstruct.handler.parameter.options"></a>
 
 - *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
 

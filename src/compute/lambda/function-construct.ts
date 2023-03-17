@@ -62,7 +62,7 @@ export class FunctionConstruct extends Construct {
       code: Lambda.Code.fromAsset(path), // './layers/dax'
     });
     this.layers[name] = layer;
-    this.useLayer(name)
+    this.useLayer(name);
     return layer;
   }
 
@@ -145,7 +145,7 @@ function getCode(source: string) {
   //   // console.log(code)
   // }
 
-  const code = source.includes('exports.handler = ') ? source : `exports.handler = ${source}`
+  const code = source.includes('exports.handler = ') ? source : `exports.handler = ${source}`;
 
   return Lambda.Code.fromInline(code);
 }
