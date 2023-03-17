@@ -119,6 +119,7 @@ export class WebAppConstruct extends Construct {
       });
       log(res);
     }
+    return this
   }
 
 }
