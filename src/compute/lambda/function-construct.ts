@@ -44,14 +44,14 @@ export class FunctionConstruct extends Construct {
   }
 
   /**
-       * create a layer from local file, s3 url or existing layer construct
-       *
-       * @author Diego Torres
-       * @memberof FunctionConstruct
-       * @param {string} name - layer friendly name
-       * @param {string} path - local or s3 path to layer folder
-       * @return {Lambda.LayerVersion}
-       */
+   * create a layer from local file, s3 url or existing layer construct
+   *
+   * @author Diego Torres
+   * @memberof FunctionConstruct
+   * @param {string} name - layer friendly name
+   * @param {string} path - local or s3 path to layer folder
+   * @return {Lambda.LayerVersion}
+   */
   createLayer(name: string, path: string): Lambda.LayerVersion {
     console.info(`creating layer ${name} using ${path}`);
     const layer = new Lambda.LayerVersion(this, name, {
