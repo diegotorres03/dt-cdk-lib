@@ -62,6 +62,7 @@ export class FunctionConstruct extends Construct {
       code: Lambda.Code.fromAsset(path), // './layers/dax'
     });
     this.layers[name] = layer;
+    this.useLayer(name)
     return layer;
   }
 
@@ -80,7 +81,7 @@ export class FunctionConstruct extends Construct {
    * @return {*}
    * @memberof FunctionConstruct
    */
-  handler(functionCode: string, options: FunctionOptions) {
+  handler(functionCode: string, options: FunctionOptions = {}) {
     const name = options.name ?? this.functionName;
 
     let vpc;
@@ -132,18 +133,19 @@ function getCode(source: string) {
 
   if (source.includes('./')) return Lambda.Code.fromAsset(source);
 
-  let code;
   //   const functionCodeStr = source
+  // if (source.includes('exports.handler = ')) {
+  //   // console.log('full function')
+  //   code = `(${source})()`;
+  // } else {
+  //   // console.log('handler function')
+  //   code = `(function() {
+  //           exports.handler = ${source}
+  //       })()`;
+  //   // console.log(code)
+  // }
 
-  if (source.includes('exports.handler = ')) {
-    // console.log('full function')
-    code = `(${source})()`;
-  } else {
-    // console.log('handler function')
-    code = `(function() {
-            exports.handler = ${source}
-        })()`;
-    // console.log(code)
-  }
+  const code = source.includes('exports.handler = ') ? source : `exports.handler = ${source}`
+
   return Lambda.Code.fromInline(code);
 }
