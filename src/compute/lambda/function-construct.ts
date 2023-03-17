@@ -24,11 +24,11 @@ const { warn } = console;
 
 export interface FunctionOptions {
   readonly name?: string;
-  readonly env?: any;
+  readonly env?: { [key: string]: string };
   // readonly access: Function[];
   readonly vpc?: EC2.Vpc | string;
   readonly securityGroupIds?: string[];
-  readonly layers?: string[] // Lambda.ILayerVersion[];
+  readonly layers?: string[]; // Lambda.ILayerVersion[];
 }
 
 export class FunctionConstruct extends Construct {

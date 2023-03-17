@@ -515,7 +515,7 @@ const functionOptions: FunctionOptions = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.env">env</a></code> | <code>any</code> | *No description.* |
-| <code><a href="#dt-cdk-lib.FunctionOptions.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.FunctionOptions.property.layers">layers</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.vpc">vpc</a></code> | <code>string \| aws-cdk-lib.aws_ec2.Vpc</code> | *No description.* |
@@ -535,10 +535,10 @@ public readonly env: any;
 ##### `layers`<sup>Optional</sup> <a name="layers" id="dt-cdk-lib.FunctionOptions.property.layers"></a>
 
 ```typescript
-public readonly layers: ILayerVersion[];
+public readonly layers: string[];
 ```
 
-- *Type:* aws-cdk-lib.aws_lambda.ILayerVersion[]
+- *Type:* string[]
 
 ---
 
