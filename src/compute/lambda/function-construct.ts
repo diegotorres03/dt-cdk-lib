@@ -23,11 +23,11 @@ const { warn } = console;
 // }
 
 export interface FunctionOptions {
-  readonly name: string;
-  readonly env: any;
+  readonly name?: string;
+  readonly env?: any;
   // readonly access: Function[];
-  readonly vpc: EC2.Vpc | string;
-  readonly securityGroupIds: string[];
+  readonly vpc?: EC2.Vpc | string;
+  readonly securityGroupIds?: string[];
   readonly layers?: Lambda.ILayerVersion[];
 }
 
@@ -36,11 +36,14 @@ export class FunctionConstruct extends Construct {
   // layers: Map<string, Lambda.LayerVersion> = new Map();
   // layersToUse: Set<Lambda.LayerVersion> = new Set();
 
-  layers: {[layerName: string]: Lambda.LayerVersion} = {};
+  layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
+
+  #functionName
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
+    this.#functionName = id
   }
 
   /**
@@ -58,7 +61,7 @@ export class FunctionConstruct extends Construct {
       removalPolicy: RemovalPolicy.DESTROY,
       code: Lambda.Code.fromAsset(path), // './layers/dax'
     });
-    this.layers[name] =layer;
+    this.layers[name] = layer;
     return layer;
   }
 
@@ -78,15 +81,15 @@ export class FunctionConstruct extends Construct {
    * @memberof FunctionConstruct
    */
   handler(functionCode: string, options: FunctionOptions) {
-    if (!options.name) throw new Error('name is required');
+    const name = options.name ?? this.#functionName
 
     let vpc;
     let sgs;
     if (options.vpc) {
       vpc = options.vpc === 'default' ?
-        EC2.Vpc.fromLookup(this, 'default-vpc-' + options.name, { isDefault: true }) :
+        EC2.Vpc.fromLookup(this, 'default-vpc-' + name, { isDefault: true }) :
         options.vpc as EC2.Vpc;
-      sgs = [EC2.SecurityGroup.fromLookupByName(this, 'defaultSG-' + options.name, 'default', vpc)];
+      sgs = [EC2.SecurityGroup.fromLookupByName(this, 'defaultSG-' + name, 'default', vpc)];
       //  sgs = Array.isArray(options.securityGroupIds) ? options.securityGroupIds
       //     .map(sgId => EC2.SecurityGroup.fromSecurityGroupId(this, 'sgid', sgId)) : []
       // console.log('sgids', options.securityGroupIds)
@@ -107,7 +110,7 @@ export class FunctionConstruct extends Construct {
       environment: { ...options.env },
     } as Lambda.FunctionProps;
 
-    const lambda = new Lambda.Function(this, options.name, lambdaParams);
+    const lambda = new Lambda.Function(this, name + '-handler', lambdaParams);
 
     // if (options && Array.isArray(options.access)) {
     //     options.access.forEach(fn => fn(lambda));
