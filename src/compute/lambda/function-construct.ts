@@ -28,7 +28,7 @@ export interface FunctionOptions {
   // readonly access: Function[];
   readonly vpc?: EC2.Vpc | string;
   readonly securityGroupIds?: string[];
-  readonly layers?: Lambda.ILayerVersion[];
+  readonly layers?: string[] // Lambda.ILayerVersion[];
 }
 
 export class FunctionConstruct extends Construct {
@@ -39,11 +39,11 @@ export class FunctionConstruct extends Construct {
   layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
 
-  private functionName
+  private functionName: string;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
-    this.functionName = id
+    this.functionName = id;
   }
 
   /**
@@ -81,7 +81,7 @@ export class FunctionConstruct extends Construct {
    * @memberof FunctionConstruct
    */
   handler(functionCode: string, options: FunctionOptions) {
-    const name = options.name ?? this.functionName
+    const name = options.name ?? this.functionName;
 
     let vpc;
     let sgs;

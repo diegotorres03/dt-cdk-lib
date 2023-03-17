@@ -515,50 +515,20 @@ const functionOptions: FunctionOptions = { ... }
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.env">env</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.FunctionOptions.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.vpc">vpc</a></code> | <code>string \| aws-cdk-lib.aws_ec2.Vpc</code> | *No description.* |
-| <code><a href="#dt-cdk-lib.FunctionOptions.property.layers">layers</a></code> | <code>aws-cdk-lib.aws_lambda.ILayerVersion[]</code> | *No description.* |
 
 ---
 
-##### `env`<sup>Required</sup> <a name="env" id="dt-cdk-lib.FunctionOptions.property.env"></a>
+##### `env`<sup>Optional</sup> <a name="env" id="dt-cdk-lib.FunctionOptions.property.env"></a>
 
 ```typescript
 public readonly env: any;
 ```
 
 - *Type:* any
-
----
-
-##### `name`<sup>Required</sup> <a name="name" id="dt-cdk-lib.FunctionOptions.property.name"></a>
-
-```typescript
-public readonly name: string;
-```
-
-- *Type:* string
-
----
-
-##### `securityGroupIds`<sup>Required</sup> <a name="securityGroupIds" id="dt-cdk-lib.FunctionOptions.property.securityGroupIds"></a>
-
-```typescript
-public readonly securityGroupIds: string[];
-```
-
-- *Type:* string[]
-
----
-
-##### `vpc`<sup>Required</sup> <a name="vpc" id="dt-cdk-lib.FunctionOptions.property.vpc"></a>
-
-```typescript
-public readonly vpc: string | Vpc;
-```
-
-- *Type:* string | aws-cdk-lib.aws_ec2.Vpc
 
 ---
 
@@ -569,6 +539,36 @@ public readonly layers: ILayerVersion[];
 ```
 
 - *Type:* aws-cdk-lib.aws_lambda.ILayerVersion[]
+
+---
+
+##### `name`<sup>Optional</sup> <a name="name" id="dt-cdk-lib.FunctionOptions.property.name"></a>
+
+```typescript
+public readonly name: string;
+```
+
+- *Type:* string
+
+---
+
+##### `securityGroupIds`<sup>Optional</sup> <a name="securityGroupIds" id="dt-cdk-lib.FunctionOptions.property.securityGroupIds"></a>
+
+```typescript
+public readonly securityGroupIds: string[];
+```
+
+- *Type:* string[]
+
+---
+
+##### `vpc`<sup>Optional</sup> <a name="vpc" id="dt-cdk-lib.FunctionOptions.property.vpc"></a>
+
+```typescript
+public readonly vpc: string | Vpc;
+```
+
+- *Type:* string | aws-cdk-lib.aws_ec2.Vpc
 
 ---
 
