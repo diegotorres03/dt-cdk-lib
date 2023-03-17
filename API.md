@@ -41,6 +41,7 @@ new DynamoCostruct(scope: Construct, id: string)
 | <code><a href="#dt-cdk-lib.DynamoCostruct.addKeys">addKeys</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.DynamoCostruct.createDax">createDax</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.DynamoCostruct.end">end</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.DynamoCostruct.on">on</a></code> | *No description.* |
 
 ---
 
@@ -105,6 +106,24 @@ public createDax(subnetIds: string[], securityGroupIds: string[]): void
 ```typescript
 public end(): void
 ```
+
+##### `on` <a name="on" id="dt-cdk-lib.DynamoCostruct.on"></a>
+
+```typescript
+public on(eventName: string, handlerCode: string): void
+```
+
+###### `eventName`<sup>Required</sup> <a name="eventName" id="dt-cdk-lib.DynamoCostruct.on.parameter.eventName"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.DynamoCostruct.on.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
 
 #### Static Functions <a name="Static Functions" id="Static Functions"></a>
 
@@ -211,6 +230,7 @@ new FunctionConstruct(scope: Construct, id: string)
 | <code><a href="#dt-cdk-lib.FunctionConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.createLayer">createLayer</a></code> | create a layer from local file, s3 url or existing layer construct. |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.handler">handler</a></code> | here is where you add or reference the lambda code. |
+| <code><a href="#dt-cdk-lib.FunctionConstruct.trigger">trigger</a></code> | this tell wich will be the trigger or source of the event for lambda to handle. |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.useLayer">useLayer</a></code> | *No description.* |
 
 ---
@@ -250,7 +270,7 @@ local or s3 path to layer folder.
 ##### `handler` <a name="handler" id="dt-cdk-lib.FunctionConstruct.handler"></a>
 
 ```typescript
-public handler(functionCode: string, options?: FunctionOptions): Function
+public handler(functionCode: string, options?: FunctionOptions): void
 ```
 
 here is where you add or reference the lambda code.
@@ -266,6 +286,20 @@ function code in the target language as a string, or a ./path/to/file or s3://pa
 ###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.FunctionConstruct.handler.parameter.options"></a>
 
 - *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
+
+---
+
+##### `trigger` <a name="trigger" id="dt-cdk-lib.FunctionConstruct.trigger"></a>
+
+```typescript
+public trigger(construct: Construct): void
+```
+
+this tell wich will be the trigger or source of the event for lambda to handle.
+
+###### `construct`<sup>Required</sup> <a name="construct" id="dt-cdk-lib.FunctionConstruct.trigger.parameter.construct"></a>
+
+- *Type:* constructs.Construct
 
 ---
 
@@ -314,6 +348,7 @@ Any object.
 | <code><a href="#dt-cdk-lib.FunctionConstruct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.property.layers">layers</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_lambda.LayerVersion}</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.property.layersToUse">layersToUse</a></code> | <code>aws-cdk-lib.aws_lambda.LayerVersion[]</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.FunctionConstruct.property.handlerFn">handlerFn</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
 
 ---
 
@@ -346,6 +381,16 @@ public readonly layersToUse: LayerVersion[];
 ```
 
 - *Type:* aws-cdk-lib.aws_lambda.LayerVersion[]
+
+---
+
+##### `handlerFn`<sup>Optional</sup> <a name="handlerFn" id="dt-cdk-lib.FunctionConstruct.property.handlerFn"></a>
+
+```typescript
+public readonly handlerFn: Function;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Function
 
 ---
 

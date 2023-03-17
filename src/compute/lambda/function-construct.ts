@@ -41,7 +41,7 @@ export class FunctionConstruct extends Construct {
   layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
 
-  handlerFn?: Lambda.Function
+  handlerFn?: Lambda.Function;
 
   private functionName: string;
 
@@ -132,16 +132,16 @@ export class FunctionConstruct extends Construct {
    * @memberof FunctionConstruct
    */
   trigger(construct: Construct) {
-    console.log(construct.constructor.name)
-    if(!this.handlerFn) return console.error('handler function not defined');
-    
+    console.log(construct.constructor.name);
+    if (!this.handlerFn) return console.error('handler function not defined');
+
     // if Dynamo
-    const table = construct as Dynamo.Table
+    const table = construct as Dynamo.Table;
     this.handlerFn?.addEventSource(new LambdaEventSources.DynamoEventSource(table, {
       startingPosition: Lambda.StartingPosition.TRIM_HORIZON,
-    }))
+    }));
 
-    table.grantStreamRead(this.handlerFn)
+    table.grantStreamRead(this.handlerFn);
   }
 
 }
