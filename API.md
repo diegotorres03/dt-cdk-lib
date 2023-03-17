@@ -259,7 +259,7 @@ here is where you add or reference the lambda code.
 
 - *Type:* string
 
-function code in the target language as a string,  or a ./path/to/file or s3://path/to/file.
+function code in the target language as a string, or a ./path/to/file or s3://path/to/file.
 
 ---
 
