@@ -131,11 +131,10 @@ export class FunctionConstruct extends Construct {
    * @param {Construct} construct
    * @memberof FunctionConstruct
    */
-  trigger<T>(construct: Construct) {
+  trigger(construct: Construct) {
     console.log(construct.constructor.name)
     if(!this.handlerFn) return console.error('handler function not defined');
     
-
     // if Dynamo
     const table = construct as Dynamo.Table
     this.handlerFn?.addEventSource(new LambdaEventSources.DynamoEventSource(table, {
