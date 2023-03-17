@@ -1,5 +1,6 @@
 {
   "name": "dt-cdk-lib",
+  "description": "set of reusable cdk constructs to make comon tasks easier",
   "repository": {
     "type": "git",
     "url": "https://github.com/diegotorre0303s/22-dt-cdk-lib.git"

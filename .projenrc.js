@@ -14,10 +14,9 @@ const project = new awscdk.AwsCdkConstructLibrary({
     module: 'cdk-constructs',
   },
 
-  
 
   // deps: [],                /* Runtime dependencies of this module. */
-  // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */
+  description: 'set of reusable cdk constructs to make comon tasks easier',  /* The description is just a string that helps people understand the purpose of the package. */
   // devDeps: [],             /* Build dependencies for this module. */
   // packageName: undefined,  /* The "name" in package.json. */
 });
