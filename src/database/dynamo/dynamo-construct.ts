@@ -35,6 +35,7 @@ export class DynamoCostruct extends Construct {
       tableName: PhysicalName.GENERATE_IF_NEEDED,
       billingMode: Dynamo.BillingMode.PAY_PER_REQUEST,
       partitionKey: {},
+      stream: Dynamo.StreamViewType.NEW_AND_OLD_IMAGES, // [ ] enable the hability to change this
     } as Dynamo.TableProps;
   }
 
