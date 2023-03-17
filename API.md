@@ -514,7 +514,7 @@ const functionOptions: FunctionOptions = { ... }
 
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
-| <code><a href="#dt-cdk-lib.FunctionOptions.property.env">env</a></code> | <code>any</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.FunctionOptions.property.env">env</a></code> | <code>{[ key: string ]: string}</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.layers">layers</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | *No description.* |
@@ -525,10 +525,10 @@ const functionOptions: FunctionOptions = { ... }
 ##### `env`<sup>Optional</sup> <a name="env" id="dt-cdk-lib.FunctionOptions.property.env"></a>
 
 ```typescript
-public readonly env: any;
+public readonly env: {[ key: string ]: string};
 ```
 
-- *Type:* any
+- *Type:* {[ key: string ]: string}
 
 ---
 
