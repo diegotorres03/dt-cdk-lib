@@ -1,10 +1,9 @@
 import {
-  Stack, StackProps,
   aws_iam as iam,
   aws_dynamodb as Dynamo,
   aws_dax as Dax,
-  aws_lambda as Lambda,
-  aws_lambda_event_sources as LambdaEventSources,
+  // aws_lambda as Lambda,
+  // aws_lambda_event_sources as LambdaEventSources,
   CfnOutput,
   PhysicalName,
   //
@@ -17,19 +16,24 @@ const unimplementedError = 'this method hasn`t been implemented, feel free to co
 
 export class DynamoCostruct extends Construct {
 
-  static operations = {
-    INSERT: 'Insert',
-    MODIFY: 'Modify',
-    DELETE: 'Delete',
-  };
+  // static operations = {
+  //     INSERT: 'Insert',
+  //     MODIFY: 'Modify',
+  //     DELETE: 'Delete',
+  // };
 
-  public table: Dynamo.Table;
-  public daxCache: Dax.CfnCluster;
+  public table?: Dynamo.Table;
+  public daxCache?: Dax.CfnCluster;
 
   private params: Dynamo.TableProps;
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
+    this.params = {
+      tableName: PhysicalName.GENERATE_IF_NEEDED,
+      billingMode: Dynamo.BillingMode.PAY_PER_REQUEST,
+      partitionKey: {},
+    } as Dynamo.TableProps;
   }
 
   addKeys(partitionKey: string, sortKey?: string) {
@@ -67,7 +71,8 @@ export class DynamoCostruct extends Construct {
     throw new Error(unimplementedError);
   }
 
-  createDax(params: { subnetIds: string[]; securityGroupIds: string[] }) {
+  createDax(subnetIds: string[], securityGroupIds: string[]) {
+    if (!this.table) return console.warn('can`t create a dax index without creating a table first');
 
     // [ ] Dax?
     const daxRole = new iam.Role(this, 'DaxRole', {
@@ -83,7 +88,7 @@ export class DynamoCostruct extends Construct {
 
     const daxSubnetGroup = new Dax.CfnSubnetGroup(this, 'DaxSubnetGroup', {
       description: 'private subnet group for DAX',
-      subnetIds: params.subnetIds, // [] create a subnet and get the id
+      subnetIds: subnetIds, // [] create a subnet and get the id
       subnetGroupName: 'dax-test-group-2',
     });
 
@@ -91,7 +96,7 @@ export class DynamoCostruct extends Construct {
       iamRoleArn: daxRole.roleArn,
       nodeType: 'dax.t3.small',
       replicationFactor: 1,
-      securityGroupIds: params.securityGroupIds,
+      securityGroupIds: securityGroupIds,
       subnetGroupName: daxSubnetGroup.ref,
     });
 
@@ -103,12 +108,12 @@ export class DynamoCostruct extends Construct {
 
   }
 
-  addStreamHandler(scope: string | string[], code: Function | string, options: any) {
-    throw new Error(unimplementedError);
-    // [ ] enable streams if not enabled already
-    // [ ] create lambda
-    // [ ] set lambda as handler for dynamo
-  }
+  //   addStreamHandler(scope: string | string[], code: Function | string, options: any) {
+  //     throw new Error(unimplementedError);
+  //     // [ ] enable streams if not enabled already
+  //     // [ ] create lambda
+  //     // [ ] set lambda as handler for dynamo
+  //   }
 
 }
 

@@ -23,49 +23,52 @@ const { warn } = console;
 // }
 
 export interface FunctionOptions {
-  name: string;
-  env: any;
-  access: Function[];
-  vpc: EC2.Vpc | string;
-  securityGroupIds: string[];
-  layers?: Lambda.ILayerVersion[];
+  readonly name: string;
+  readonly env: any;
+  // readonly access: Function[];
+  readonly vpc: EC2.Vpc | string;
+  readonly securityGroupIds: string[];
+  readonly layers?: Lambda.ILayerVersion[];
 }
 
 export class FunctionConstruct extends Construct {
 
-  layers: Map<string, Lambda.LayerVersion> = new Map();
-  layersToUse: Set<Lambda.LayerVersion> = new Set();
+  // layers: Map<string, Lambda.LayerVersion> = new Map();
+  // layersToUse: Set<Lambda.LayerVersion> = new Set();
+
+  layers: {[layerName: string]: Lambda.LayerVersion} = {};
+  layersToUse: Array<Lambda.LayerVersion> = [];
 
   constructor(scope: Construct, id: string) {
     super(scope, id);
   }
 
   /**
-     * create a layer from local file, s3 url or existing layer construct
-     *
-     * @author Diego Torres
-     * @memberof FunctionConstruct
-     * @param {string} name - layer friendly name
-     * @param {string} path - local or s3 path to layer folder
-     * @return {Lambda.LayerVersion}
-     */
+       * create a layer from local file, s3 url or existing layer construct
+       *
+       * @author Diego Torres
+       * @memberof FunctionConstruct
+       * @param {string} name - layer friendly name
+       * @param {string} path - local or s3 path to layer folder
+       * @return {Lambda.LayerVersion}
+       */
   createLayer(name: string, path: string): Lambda.LayerVersion {
     console.info(`creating layer ${name} using ${path}`);
     const layer = new Lambda.LayerVersion(this, name, {
       removalPolicy: RemovalPolicy.DESTROY,
       code: Lambda.Code.fromAsset(path), // './layers/dax'
     });
-    this.layers.set(name, layer);
+    this.layers[name] =layer;
     return layer;
   }
 
   useLayer(name: string) {
-    const layer = this.layers.get(name);
+    const layer = this.layers[name];
     if (!layer) return warn(`layer ${name} not found!`);
-    this.layersToUse.add(layer);
+    this.layersToUse.push(layer);
   }
 
-  handler(functionCode: string | Function, options: FunctionOptions) {
+  handler(functionCode: string, options: FunctionOptions) {
     if (!options.name) throw new Error('name is required');
 
     let vpc;
@@ -86,7 +89,7 @@ export class FunctionConstruct extends Construct {
       runtime: Lambda.Runtime.NODEJS_14_X,
       code: getCode(functionCode),
       timeout: Duration.minutes(1),
-      layers: Array.from(this.layersToUse),
+      layers: this.layersToUse,
       // code: Lambda.Code.fromAsset(lambdaDef.path),
       allowPublicSubnet: vpc ? true : undefined,
       securityGroups: sgs,
@@ -97,9 +100,9 @@ export class FunctionConstruct extends Construct {
 
     const lambda = new Lambda.Function(this, options.name, lambdaParams);
 
-    if (options && Array.isArray(options.access)) {
-      options.access.forEach(fn => fn(lambda));
-    }
+    // if (options && Array.isArray(options.access)) {
+    //     options.access.forEach(fn => fn(lambda));
+    // }
 
     return lambda;
   }
@@ -107,26 +110,26 @@ export class FunctionConstruct extends Construct {
 }
 
 
-function getCode(source: string | Function) {
-  if (typeof source === 'string') {
-    if (source.includes('s3://')) {
-      // const bucket = ''
-      // const key = ''
-      // return Lambda.Code.fromBucket(bucket, key)
-    }
-    return Lambda.Code.fromAsset(source);
+function getCode(source: string) {
+  if (source.includes('s3://')) {
+    // const bucket = ''
+    // const key = ''
+    // return Lambda.Code.fromBucket(bucket, key)
+    console.warn('this method hasn`t being implemented');
   }
 
-  let code;
-  const functionCodeStr = source.toString();
+  if (source.includes('./')) return Lambda.Code.fromAsset(source);
 
-  if (functionCodeStr.includes('exports.handler = ')) {
+  let code;
+  //   const functionCodeStr = source
+
+  if (source.includes('exports.handler = ')) {
     // console.log('full function')
-    code = `(${functionCodeStr})()`;
+    code = `(${source})()`;
   } else {
     // console.log('handler function')
     code = `(function() {
-            exports.handler = ${functionCodeStr}
+            exports.handler = ${source}
         })()`;
     // console.log(code)
   }
