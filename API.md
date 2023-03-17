@@ -75,7 +75,7 @@ after deploying infraestructure
 ##### `run` <a name="run" id="dt-cdk-lib.WebAppConstruct.run"></a>
 
 ```typescript
-public run(path: string, commands: string | string[]): void
+public run(path: string, commands: string | string[]): WebAppConstruct
 ```
 
 Run local comands before uploading assets and creating infraestructure.

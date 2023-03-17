@@ -92,7 +92,7 @@ export class WebAppConstruct extends Construct {
      * @return {*}
      * @memberof WebAppConstruct
      */
-  addAssets(path: string, destinationPath?: string) {
+  addAssets(path: string, destinationPath?: string): WebAppConstruct {
     new S3Deployment.BucketDeployment(this, 'deployStaticWebapp', {
       sources: [S3Deployment.Source.asset(path)],
       destinationBucket: this.webappBucket,
@@ -110,7 +110,7 @@ export class WebAppConstruct extends Construct {
      * @param {(string | string[])} commands
      * @memberof WebAppConstruct
      */
-  run(path:string, commands: string | string[]) {
+  run(path:string, commands: string | string[]): WebAppConstruct {
     const cmds = Array.isArray(commands) ? commands : [commands];
     for (let cmd of cmds) {
       const res = execSync(cmd, {
@@ -119,7 +119,7 @@ export class WebAppConstruct extends Construct {
       });
       log(res);
     }
-    return this
+    return this;
   }
 
 }
