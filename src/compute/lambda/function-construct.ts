@@ -68,6 +68,15 @@ export class FunctionConstruct extends Construct {
     this.layersToUse.push(layer);
   }
 
+  /**
+   * here is where you add or reference the lambda code
+   *
+   * @param {string} functionCode - function code in the target language as a string, 
+   * or a ./path/to/file or s3://path/to/file
+   * @param {FunctionOptions} options
+   * @return {*} 
+   * @memberof FunctionConstruct
+   */
   handler(functionCode: string, options: FunctionOptions) {
     if (!options.name) throw new Error('name is required');
 
