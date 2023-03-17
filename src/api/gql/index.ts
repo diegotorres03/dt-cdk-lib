@@ -1,1 +1,1 @@
-export * from './graphql-builder-construct'
+export * from './graphql-builder-construct';

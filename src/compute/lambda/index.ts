@@ -1,1 +1,1 @@
-export * from './function-construct'
+export * from './function-construct';

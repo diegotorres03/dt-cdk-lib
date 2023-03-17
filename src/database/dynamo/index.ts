@@ -1,1 +1,1 @@
-export * from './dynamo-construct'
+export * from './dynamo-construct';

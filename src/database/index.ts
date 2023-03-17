@@ -1,2 +1,2 @@
-export * from './dynamo'
+export * from './dynamo';
 // export * from './timestream'
