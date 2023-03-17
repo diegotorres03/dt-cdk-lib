@@ -1,6 +1,8 @@
 import {
   aws_lambda as Lambda,
+  aws_lambda_event_sources as LambdaEventSources,
   aws_ec2 as EC2,
+  aws_dynamodb as Dynamo,
   RemovalPolicy,
   Duration,
 } from 'aws-cdk-lib';
@@ -38,6 +40,8 @@ export class FunctionConstruct extends Construct {
 
   layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
+
+  handlerFn?: Lambda.Function
 
   private functionName: string;
 
@@ -111,13 +115,34 @@ export class FunctionConstruct extends Construct {
       environment: { ...options.env },
     } as Lambda.FunctionProps;
 
-    const lambda = new Lambda.Function(this, name + '-handler', lambdaParams);
+    this.handlerFn = new Lambda.Function(this, name + '-handler', lambdaParams);
 
     // if (options && Array.isArray(options.access)) {
     //     options.access.forEach(fn => fn(lambda));
     // }
 
-    return lambda;
+    // return this.handlerFn;
+  }
+
+  /**
+   * this tell wich will be the trigger or source of the event for lambda to handle
+   *
+   * @template T
+   * @param {Construct} construct
+   * @memberof FunctionConstruct
+   */
+  trigger<T>(construct: Construct) {
+    console.log(construct.constructor.name)
+    if(!this.handlerFn) return console.error('handler function not defined');
+    
+
+    // if Dynamo
+    const table = construct as Dynamo.Table
+    this.handlerFn?.addEventSource(new LambdaEventSources.DynamoEventSource(table, {
+      startingPosition: Lambda.StartingPosition.TRIM_HORIZON,
+    }))
+
+    table.grantStreamRead(this.handlerFn)
   }
 
 }

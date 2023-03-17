@@ -10,6 +10,8 @@ import {
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
+import { FunctionConstruct, FunctionOptions } from '../../compute'
+
 
 const unimplementedError = 'this method hasn`t been implemented, feel free to contribute';
 
@@ -106,6 +108,13 @@ export class DynamoCostruct extends Construct {
       // exportName: 'daxClusterEndpointUrl'
     });
 
+  }
+
+  on(eventName: string, handlerCode: string) {
+    const fn = new FunctionConstruct(this, `${eventName}_handler`)
+    fn.handler(handlerCode)
+    if(!this.table) return
+    fn.trigger<Dynamo.Table>(this.table)
   }
 
   //   addStreamHandler(scope: string | string[], code: Function | string, options: any) {
