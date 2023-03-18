@@ -11,7 +11,20 @@ import {
 import { Construct } from 'constructs';
 
 
+import { FunctionConstruct } from '../compute'
+
+const { ORIGIN_REQUEST, ORIGIN_RESPONSE, VIEWER_REQUEST, VIEWER_RESPONSE } = CloudFront.LambdaEdgeEventType
+
+
+
 export class WebAppConstruct extends Construct {
+
+  static readonly EVENT_TYPES = CloudFront.LambdaEdgeEventType
+
+  private additionalBehaviors: CloudFront.BehaviorOptions[] = []
+  private cdnDistribution: CloudFront.Distribution
+  private defaultOrigin: CloudFrontOrigins.S3Origin
+
   webappBucket: S3.Bucket;
   constructor(scope: Construct, id: string) {
     super(scope, id);
@@ -52,32 +65,160 @@ export class WebAppConstruct extends Construct {
     // [ ] 1.2.1: create CloudFront distribution [docs](https://docs.aws.amazon.com/cdk/api/v1/docs/aws-cloudfront-readme.html)
     const originAccessIdentity = new CloudFront.OriginAccessIdentity(this, 'OriginAccessIdentity');
 
+
     // allow clowdfront to read s3 webpp files
     this.webappBucket.grantRead(originAccessIdentity);
 
-    const cdnDistribution = new CloudFront.Distribution(this, 'WebappDistribution', {
+    this.defaultOrigin = new CloudFrontOrigins.S3Origin(this.webappBucket, { originAccessIdentity })
+    this.cdnDistribution = new CloudFront.Distribution(this, 'WebappDistribution', {
       defaultRootObject: 'index.html',
 
       defaultBehavior: {
-        origin: new CloudFrontOrigins.S3Origin(this.webappBucket, { originAccessIdentity }),
+        origin: this.defaultOrigin,
       },
+
 
       // certificate: cert,
       // domainNames: [domainName]
     });
 
+
     new CfnOutput(this, 'webappDnsUrl', {
-      value: cdnDistribution.distributionDomainName,
+      value: this.cdnDistribution.distributionDomainName,
     });
     // exportName: 'webappDnsUrl'
 
     new CfnOutput(this, 'distributionId', {
-      value: cdnDistribution.distributionId,
+      value: this.cdnDistribution.distributionId,
     });
     // exportName: 'distributionId'
 
 
+  //   const webapp = this
+
+
+  //   webapp.addAssets('./app')
+  //   webapp.onViewerRequest('users/*', (ev => console.log(ev)).toString())
+  //   webapp.onViewerResponse('users/*', (ev => console.log(ev)).toString())
+  //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
+  //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
+
+
+
+  //   const handler = (ev => console.log(ev)).toString()
+
+  //   webapp
+  //     .path('users/*')
+  //     .onOriginRequest(handler)
+  //     .onOriginResponse(handler)
+  //     .onViewerRequest(handler)
+  //     .onViewerResponse(handler)
+
   }
+
+
+  path(path: string) {
+    const methods = {
+      onViewerRequest: (handlerCode: string) => {
+        this.onViewerRequest(path, handlerCode)
+        return methods
+      },
+      onViewerResponse: (handlerCode: string) => {
+        this.onViewerResponse(path, handlerCode)
+        return methods
+      },
+      onOriginRequest: (handlerCode: string) => {
+        this.onOriginRequest(path, handlerCode)
+        return methods
+      },
+      onOriginResponse: (handlerCode: string) => {
+        this.onOriginResponse(path, handlerCode)
+        return methods
+      },
+    }
+    return methods
+  }
+
+  onViewerRequest(path: string, handlerCode: string) {
+
+    const eventType = VIEWER_REQUEST
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
+    fn.handler(handlerCode)
+
+    if(!fn.handlerFn) throw new Error('handler fn not created')
+    
+
+    // [ ] optimize to reuse this piece of code in the rest
+    this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
+      edgeLambdas: [{
+        eventType,
+        functionVersion: fn.handlerFn?.currentVersion,
+        includeBody: true
+      }]
+    })
+
+  }
+
+  // [ ] instead of creating the behaviour on each call, can I group them?
+  onViewerResponse(path: string, handlerCode: string) {
+
+    const eventType = VIEWER_RESPONSE
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
+    fn.handler(handlerCode)
+
+    if(!fn.handlerFn) throw new Error('handler fn not created')
+    
+
+    // [ ] optimize to reuse this piece of code in the rest
+    this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
+      edgeLambdas: [{
+        eventType,
+        functionVersion: fn.handlerFn?.currentVersion,
+        includeBody: true
+      }]
+    })
+  }
+
+  onOriginRequest(path: string, handlerCode: string) {
+
+    const eventType = ORIGIN_REQUEST
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
+    fn.handler(handlerCode)
+
+    if(!fn.handlerFn) throw new Error('handler fn not created')
+    
+
+    // [ ] optimize to reuse this piece of code in the rest
+    this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
+      edgeLambdas: [{
+        eventType,
+        functionVersion: fn.handlerFn?.currentVersion,
+        includeBody: true
+      }]
+    })
+  }
+
+  onOriginResponse(path: string, handlerCode: string) {
+
+    const eventType = ORIGIN_RESPONSE
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
+    fn.handler(handlerCode)
+
+    if(!fn.handlerFn) throw new Error('handler fn not created')
+    
+
+    // [ ] optimize to reuse this piece of code in the rest
+    this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
+      edgeLambdas: [{
+        eventType,
+        functionVersion: fn.handlerFn?.currentVersion,
+        includeBody: true
+      }]
+    })
+  }
+
+
+
 
   /**
      * Use this metod to upload application artifacts
@@ -110,7 +251,7 @@ export class WebAppConstruct extends Construct {
      * @param {(string | string[])} commands
      * @memberof WebAppConstruct
      */
-  run(path:string, commands: string | string[]): WebAppConstruct {
+  run(path: string, commands: string | string[]): WebAppConstruct {
     const cmds = Array.isArray(commands) ? commands : [commands];
     for (let cmd of cmds) {
       const res = execSync(cmd, {
