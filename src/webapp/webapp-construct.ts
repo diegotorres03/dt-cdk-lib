@@ -11,19 +11,18 @@ import {
 import { Construct } from 'constructs';
 
 
-import { FunctionConstruct } from '../compute'
+import { FunctionConstruct } from '../compute';
 
-const { ORIGIN_REQUEST, ORIGIN_RESPONSE, VIEWER_REQUEST, VIEWER_RESPONSE } = CloudFront.LambdaEdgeEventType
-
+const { ORIGIN_REQUEST, ORIGIN_RESPONSE, VIEWER_REQUEST, VIEWER_RESPONSE } = CloudFront.LambdaEdgeEventType;
 
 
 export class WebAppConstruct extends Construct {
 
-  static readonly EVENT_TYPES = CloudFront.LambdaEdgeEventType
+  static readonly EVENT_TYPES = CloudFront.LambdaEdgeEventType;
 
   // private additionalBehaviors: CloudFront.BehaviorOptions[] = []
-  private cdnDistribution: CloudFront.Distribution
-  private defaultOrigin: CloudFrontOrigins.S3Origin
+  private cdnDistribution: CloudFront.Distribution;
+  private defaultOrigin: CloudFrontOrigins.S3Origin;
 
   webappBucket: S3.Bucket;
   constructor(scope: Construct, id: string) {
@@ -69,7 +68,7 @@ export class WebAppConstruct extends Construct {
     // allow clowdfront to read s3 webpp files
     this.webappBucket.grantRead(originAccessIdentity);
 
-    this.defaultOrigin = new CloudFrontOrigins.S3Origin(this.webappBucket, { originAccessIdentity })
+    this.defaultOrigin = new CloudFrontOrigins.S3Origin(this.webappBucket, { originAccessIdentity });
     this.cdnDistribution = new CloudFront.Distribution(this, 'WebappDistribution', {
       defaultRootObject: 'index.html',
 
@@ -94,25 +93,24 @@ export class WebAppConstruct extends Construct {
     // exportName: 'distributionId'
 
 
-  //   const webapp = this
+    //   const webapp = this
 
 
-  //   webapp.addAssets('./app')
-  //   webapp.onViewerRequest('users/*', (ev => console.log(ev)).toString())
-  //   webapp.onViewerResponse('users/*', (ev => console.log(ev)).toString())
-  //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
-  //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
+    //   webapp.addAssets('./app')
+    //   webapp.onViewerRequest('users/*', (ev => console.log(ev)).toString())
+    //   webapp.onViewerResponse('users/*', (ev => console.log(ev)).toString())
+    //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
+    //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
 
 
+    //   const handler = (ev => console.log(ev)).toString()
 
-  //   const handler = (ev => console.log(ev)).toString()
-
-  //   webapp
-  //     .path('users/*')
-  //     .onOriginRequest(handler)
-  //     .onOriginResponse(handler)
-  //     .onViewerRequest(handler)
-  //     .onViewerResponse(handler)
+    //   webapp
+    //     .path('users/*')
+    //     .onOriginRequest(handler)
+    //     .onOriginResponse(handler)
+    //     .onViewerRequest(handler)
+    //     .onViewerResponse(handler)
 
   }
 
@@ -141,83 +139,81 @@ export class WebAppConstruct extends Construct {
 
   onViewerRequest(path: string, handlerCode: string) {
 
-    const eventType = VIEWER_REQUEST
-    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
-    fn.handler(handlerCode)
+    const eventType = VIEWER_REQUEST;
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`);
+    fn.handler(handlerCode);
 
-    if(!fn.handlerFn) throw new Error('handler fn not created')
-    
+    if (!fn.handlerFn) throw new Error('handler fn not created');
+
 
     // [ ] optimize to reuse this piece of code in the rest
     this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
       edgeLambdas: [{
         eventType,
         functionVersion: fn.handlerFn?.currentVersion,
-        includeBody: true
-      }]
-    })
+        includeBody: true,
+      }],
+    });
 
   }
 
   // [ ] instead of creating the behaviour on each call, can I group them?
   onViewerResponse(path: string, handlerCode: string) {
 
-    const eventType = VIEWER_RESPONSE
-    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
-    fn.handler(handlerCode)
+    const eventType = VIEWER_RESPONSE;
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`);
+    fn.handler(handlerCode);
 
-    if(!fn.handlerFn) throw new Error('handler fn not created')
-    
+    if (!fn.handlerFn) throw new Error('handler fn not created');
+
 
     // [ ] optimize to reuse this piece of code in the rest
     this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
       edgeLambdas: [{
         eventType,
         functionVersion: fn.handlerFn?.currentVersion,
-        includeBody: true
-      }]
-    })
+        includeBody: true,
+      }],
+    });
   }
 
   onOriginRequest(path: string, handlerCode: string) {
 
-    const eventType = ORIGIN_REQUEST
-    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
-    fn.handler(handlerCode)
+    const eventType = ORIGIN_REQUEST;
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`);
+    fn.handler(handlerCode);
 
-    if(!fn.handlerFn) throw new Error('handler fn not created')
-    
+    if (!fn.handlerFn) throw new Error('handler fn not created');
+
 
     // [ ] optimize to reuse this piece of code in the rest
     this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
       edgeLambdas: [{
         eventType,
         functionVersion: fn.handlerFn?.currentVersion,
-        includeBody: true
-      }]
-    })
+        includeBody: true,
+      }],
+    });
   }
 
   onOriginResponse(path: string, handlerCode: string) {
 
-    const eventType = ORIGIN_RESPONSE
-    const fn = new FunctionConstruct(this, `${path}/${eventType}`)
-    fn.handler(handlerCode)
+    const eventType = ORIGIN_RESPONSE;
+    const fn = new FunctionConstruct(this, `${path}/${eventType}`);
+    fn.handler(handlerCode);
 
-    if(!fn.handlerFn) throw new Error('handler fn not created')
-    
+    if (!fn.handlerFn) throw new Error('handler fn not created');
+
 
     // [ ] optimize to reuse this piece of code in the rest
     this.cdnDistribution.addBehavior(path, this.defaultOrigin, {
       edgeLambdas: [{
         eventType,
         functionVersion: fn.handlerFn?.currentVersion,
-        includeBody: true
-      }]
-    })
+        includeBody: true,
+      }],
+    });
   }
-
-
 
 
   /**

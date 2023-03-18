@@ -18,7 +18,7 @@ const project = new awscdk.AwsCdkConstructLibrary({
   },
 
   gitignore: [
-    'playground'
+    'playground',
   ],
 
   // deps: [],                /* Runtime dependencies of this module. */

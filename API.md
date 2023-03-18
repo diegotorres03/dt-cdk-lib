@@ -430,6 +430,10 @@ new WebAppConstruct(scope: Construct, id: string)
 | --- | --- |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.addAssets">addAssets</a></code> | Use this metod to upload application artifacts add local assets to the remote store (S3 Bucket) be mindfull of size, use this method for small bundles. |
+| <code><a href="#dt-cdk-lib.WebAppConstruct.onOriginRequest">onOriginRequest</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.WebAppConstruct.onOriginResponse">onOriginResponse</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.WebAppConstruct.onViewerRequest">onViewerRequest</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.WebAppConstruct.onViewerResponse">onViewerResponse</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.run">run</a></code> | Run local comands before uploading assets and creating infraestructure. |
 
 ---
@@ -460,6 +464,78 @@ after deploying infraestructure
 ---
 
 ###### `destinationPath`<sup>Optional</sup> <a name="destinationPath" id="dt-cdk-lib.WebAppConstruct.addAssets.parameter.destinationPath"></a>
+
+- *Type:* string
+
+---
+
+##### `onOriginRequest` <a name="onOriginRequest" id="dt-cdk-lib.WebAppConstruct.onOriginRequest"></a>
+
+```typescript
+public onOriginRequest(path: string, handlerCode: string): void
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onOriginRequest.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onOriginRequest.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `onOriginResponse` <a name="onOriginResponse" id="dt-cdk-lib.WebAppConstruct.onOriginResponse"></a>
+
+```typescript
+public onOriginResponse(path: string, handlerCode: string): void
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onOriginResponse.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onOriginResponse.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `onViewerRequest` <a name="onViewerRequest" id="dt-cdk-lib.WebAppConstruct.onViewerRequest"></a>
+
+```typescript
+public onViewerRequest(path: string, handlerCode: string): void
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onViewerRequest.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onViewerRequest.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `onViewerResponse` <a name="onViewerResponse" id="dt-cdk-lib.WebAppConstruct.onViewerResponse"></a>
+
+```typescript
+public onViewerResponse(path: string, handlerCode: string): void
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onViewerResponse.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onViewerResponse.parameter.handlerCode"></a>
 
 - *Type:* string
 
@@ -542,6 +618,23 @@ public readonly webappBucket: Bucket;
 
 ---
 
+#### Constants <a name="Constants" id="Constants"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#dt-cdk-lib.WebAppConstruct.property.EVENT_TYPES">EVENT_TYPES</a></code> | <code>aws-cdk-lib.aws_cloudfront.LambdaEdgeEventType</code> | *No description.* |
+
+---
+
+##### `EVENT_TYPES`<sup>Required</sup> <a name="EVENT_TYPES" id="dt-cdk-lib.WebAppConstruct.property.EVENT_TYPES"></a>
+
+```typescript
+public readonly EVENT_TYPES: LambdaEdgeEventType;
+```
+
+- *Type:* aws-cdk-lib.aws_cloudfront.LambdaEdgeEventType
+
+---
 
 ## Structs <a name="Structs" id="Structs"></a>
 
