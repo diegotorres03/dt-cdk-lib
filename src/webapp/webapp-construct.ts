@@ -21,7 +21,7 @@ export class WebAppConstruct extends Construct {
 
   static readonly EVENT_TYPES = CloudFront.LambdaEdgeEventType
 
-  private additionalBehaviors: CloudFront.BehaviorOptions[] = []
+  // private additionalBehaviors: CloudFront.BehaviorOptions[] = []
   private cdnDistribution: CloudFront.Distribution
   private defaultOrigin: CloudFrontOrigins.S3Origin
 
@@ -117,27 +117,27 @@ export class WebAppConstruct extends Construct {
   }
 
 
-  path(path: string) {
-    const methods = {
-      onViewerRequest: (handlerCode: string) => {
-        this.onViewerRequest(path, handlerCode)
-        return methods
-      },
-      onViewerResponse: (handlerCode: string) => {
-        this.onViewerResponse(path, handlerCode)
-        return methods
-      },
-      onOriginRequest: (handlerCode: string) => {
-        this.onOriginRequest(path, handlerCode)
-        return methods
-      },
-      onOriginResponse: (handlerCode: string) => {
-        this.onOriginResponse(path, handlerCode)
-        return methods
-      },
-    }
-    return methods
-  }
+  // path(path: string) {
+  //   const methods = {
+  //     onViewerRequest: (handlerCode: string) => {
+  //       this.onViewerRequest(path, handlerCode)
+  //       return methods
+  //     },
+  //     onViewerResponse: (handlerCode: string) => {
+  //       this.onViewerResponse(path, handlerCode)
+  //       return methods
+  //     },
+  //     onOriginRequest: (handlerCode: string) => {
+  //       this.onOriginRequest(path, handlerCode)
+  //       return methods
+  //     },
+  //     onOriginResponse: (handlerCode: string) => {
+  //       this.onOriginResponse(path, handlerCode)
+  //       return methods
+  //     },
+  //   }
+  //   return methods
+  // }
 
   onViewerRequest(path: string, handlerCode: string) {
 
