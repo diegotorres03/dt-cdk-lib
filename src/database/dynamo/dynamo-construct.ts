@@ -33,9 +33,7 @@ export class DynamoCostruct extends Construct {
     super(scope, id);
     this.params = {
       tableName: PhysicalName.GENERATE_IF_NEEDED,
-      billingMode: Dynamo.BillingMode.PAY_PER_REQUEST,
       partitionKey: {},
-      stream: Dynamo.StreamViewType.NEW_AND_OLD_IMAGES, // [ ] enable the hability to change this
     } as Dynamo.TableProps;
   }
 
@@ -50,6 +48,7 @@ export class DynamoCostruct extends Construct {
         type: STRING,
       },
       sortKey: sortKey ? ({ name: sortKey, type: STRING }) : undefined,
+      stream: Dynamo.StreamViewType.NEW_AND_OLD_IMAGES, // [ ] enable the hability to change this
     } as Dynamo.TableProps;
 
     this.table = new Dynamo.Table(this, 'testTable', this.params);
