@@ -1,2 +1,2 @@
 
-export * from './rest-api-construct'
+export * from './rest-api-construct';

@@ -27,7 +27,7 @@ const { warn } = console;
 export interface FunctionOptions {
   readonly name?: string;
   readonly env?: { [key: string]: string };
-  readonly timeout?: Duration
+  readonly timeout?: Duration;
   // readonly access: Function[];
   readonly vpc?: EC2.Vpc | string;
   readonly securityGroupIds?: string[];
@@ -42,11 +42,11 @@ export class FunctionConstruct extends Construct {
   layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
 
-  // this definition in only to avoid initialization error 
+  // this definition in only to avoid initialization error
   // src/compute/lambda/function-construct.ts:45:3 - error TS2564: Property 'handlerFn' has no initializer and is not definitely assigned in the constructor.
   handlerFn: Lambda.Function = new Lambda.Function(this, 'empty-fn' + Date.now(), {
     runtime: Lambda.Runtime.NODEJS_16_X,
-    code: Lambda.Code.fromInline(`export.handler = event => {console.log(event); reutrn {success:true}}`),
+    code: Lambda.Code.fromInline('export.handler = event => {console.log(event); reutrn {success:true}}'),
     handler: 'index.handler',
   });
 
@@ -124,7 +124,7 @@ export class FunctionConstruct extends Construct {
 
     this.handlerFn = new Lambda.Function(this, name + '-handler', lambdaParams);
 
-    if (!this.handlerFn) throw new Error('something went wrong, this.handlerFn should not be empty')
+    if (!this.handlerFn) throw new Error('something went wrong, this.handlerFn should not be empty');
 
     // if (options && Array.isArray(options.access)) {
     //     options.access.forEach(fn => fn(lambda));

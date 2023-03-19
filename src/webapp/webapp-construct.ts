@@ -23,7 +23,7 @@ export class WebAppConstruct extends Construct {
   // private additionalBehaviors: CloudFront.BehaviorOptions[] = []
   private cdnDistribution: CloudFront.Distribution;
   private defaultOrigin: CloudFrontOrigins.S3Origin;
-  private pathPattern: string = ''
+  private pathPattern: string = '';
 
   webappBucket: S3.Bucket;
   constructor(scope: Construct, id: string) {
@@ -99,45 +99,51 @@ export class WebAppConstruct extends Construct {
 
     // const { ORIGIN_REQUEST, ORIGIN_RESPONSE, VIEWER_REQUEST, VIEWER_RESPONSE } = WebAppConstruct.EVENT_TYPES
 
-    // webapp.setPath('users/*')
+    // webapp.path('users/*')
     //   .on(VIEWER_REQUEST, handler)
     //   .onOriginRequest(handler)
     //   .onOriginResponse(handler)
     //   .onViewerRequest(handler)
     //   .onViewerResponse(handler)
 
-    // webapp.setPath('auth/*')
+    // webapp.path('auth/*')
     //   .onOriginRequest(handler)
     //   .onOriginResponse(handler)
     //   .onViewerRequest(handler)
     //   .onViewerResponse(handler)
 
 
-
   }
 
-  setPath(pathPattern: string) {
-    this.pathPattern = pathPattern
+  path(pathPattern: string) {
+    this.pathPattern = pathPattern;
+    return this;
+  }
+  
+  readFrom(construct: Construct): WebAppConstruct {
+    // if (!this.currentHandler) throw new Error('you need to create a handler function first');
+    // // if Dynamo
+    // const table = construct as Dynamo.Table;
+    // table.grantReadData(this.currentHandler);
     return this
   }
 
-
   on(eventType: CloudFront.LambdaEdgeEventType, handlerCode: string | string[]): WebAppConstruct {
-    const handlers = Array.isArray(handlerCode) ? handlerCode : [handlerCode]
-    const path = this.pathPattern
+    const handlers = Array.isArray(handlerCode) ? handlerCode : [handlerCode];
+    const path = this.pathPattern;
 
     // [ ] add permisions to those lambdas
     handlers.map(code => {
       const fn = new FunctionConstruct(this, `${path}/${eventType}`);
       fn.handler(code);
-      return fn
-    })
+      return fn;
+    });
 
-    return this
+    return this;
   }
 
   onViewerRequest(handlerCode: string) {
-    const path = this.pathPattern
+    const path = this.pathPattern;
     const eventType = VIEWER_REQUEST;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
     fn.handler(handlerCode);
@@ -153,21 +159,20 @@ export class WebAppConstruct extends Construct {
         includeBody: true,
       }],
     });
-    return this
+    return this;
   }
 
   // [ ] instead of creating the behaviour on each call, can I group them?
   onViewerResponse(handlerCode: string) {
-    const path = this.pathPattern
+    const path = this.pathPattern;
 
     const eventType = VIEWER_RESPONSE;
-    const fnId = `${path}/${eventType}`
-    console.log(fnId)
+    const fnId = `${path}/${eventType}`;
+    console.log(fnId);
     const fn = new FunctionConstruct(this, fnId);
     fn.handler(handlerCode);
 
     if (!fn.handlerFn) throw new Error('handler fn not created');
-
 
 
     // [ ] optimize to reuse this piece of code in the rest
@@ -178,12 +183,12 @@ export class WebAppConstruct extends Construct {
         // includeBody: true, // not valid on response
       }],
     });
-    return this
+    return this;
   }
 
 
   onOriginRequest(handlerCode: string) {
-    const path = this.pathPattern
+    const path = this.pathPattern;
 
     const eventType = ORIGIN_REQUEST;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
@@ -200,11 +205,11 @@ export class WebAppConstruct extends Construct {
         includeBody: true,
       }],
     });
-    return this
+    return this;
   }
 
   onOriginResponse(handlerCode: string) {
-    const path = this.pathPattern
+    const path = this.pathPattern;
 
     const eventType = ORIGIN_RESPONSE;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
@@ -221,7 +226,7 @@ export class WebAppConstruct extends Construct {
         // includeBody: true, // not valid on response
       }],
     });
-    return this
+    return this;
   }
 
 

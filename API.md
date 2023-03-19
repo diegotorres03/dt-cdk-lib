@@ -2,6 +2,98 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
+### AppSyncConstruct <a name="AppSyncConstruct" id="dt-cdk-lib.AppSyncConstruct"></a>
+
+#### Initializers <a name="Initializers" id="dt-cdk-lib.AppSyncConstruct.Initializer"></a>
+
+```typescript
+import { AppSyncConstruct } from 'dt-cdk-lib'
+
+new AppSyncConstruct(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#dt-cdk-lib.AppSyncConstruct.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.AppSyncConstruct.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="dt-cdk-lib.AppSyncConstruct.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="dt-cdk-lib.AppSyncConstruct.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#dt-cdk-lib.AppSyncConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
+
+---
+
+##### `toString` <a name="toString" id="dt-cdk-lib.AppSyncConstruct.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#dt-cdk-lib.AppSyncConstruct.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="dt-cdk-lib.AppSyncConstruct.isConstruct"></a>
+
+```typescript
+import { AppSyncConstruct } from 'dt-cdk-lib'
+
+AppSyncConstruct.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="dt-cdk-lib.AppSyncConstruct.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#dt-cdk-lib.AppSyncConstruct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="dt-cdk-lib.AppSyncConstruct.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### DynamoCostruct <a name="DynamoCostruct" id="dt-cdk-lib.DynamoCostruct"></a>
 
 #### Initializers <a name="Initializers" id="dt-cdk-lib.DynamoCostruct.Initializer"></a>
@@ -346,9 +438,9 @@ Any object.
 | **Name** | **Type** | **Description** |
 | --- | --- | --- |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+| <code><a href="#dt-cdk-lib.FunctionConstruct.property.handlerFn">handlerFn</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.property.layers">layers</a></code> | <code>{[ key: string ]: aws-cdk-lib.aws_lambda.LayerVersion}</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionConstruct.property.layersToUse">layersToUse</a></code> | <code>aws-cdk-lib.aws_lambda.LayerVersion[]</code> | *No description.* |
-| <code><a href="#dt-cdk-lib.FunctionConstruct.property.handlerFn">handlerFn</a></code> | <code>aws-cdk-lib.aws_lambda.Function</code> | *No description.* |
 
 ---
 
@@ -361,6 +453,16 @@ public readonly node: Node;
 - *Type:* constructs.Node
 
 The tree node.
+
+---
+
+##### `handlerFn`<sup>Required</sup> <a name="handlerFn" id="dt-cdk-lib.FunctionConstruct.property.handlerFn"></a>
+
+```typescript
+public readonly handlerFn: Function;
+```
+
+- *Type:* aws-cdk-lib.aws_lambda.Function
 
 ---
 
@@ -384,13 +486,275 @@ public readonly layersToUse: LayerVersion[];
 
 ---
 
-##### `handlerFn`<sup>Optional</sup> <a name="handlerFn" id="dt-cdk-lib.FunctionConstruct.property.handlerFn"></a>
+
+### RestApiConstruct <a name="RestApiConstruct" id="dt-cdk-lib.RestApiConstruct"></a>
+
+#### Initializers <a name="Initializers" id="dt-cdk-lib.RestApiConstruct.Initializer"></a>
 
 ```typescript
-public readonly handlerFn: Function;
+import { RestApiConstruct } from 'dt-cdk-lib'
+
+new RestApiConstruct(scope: Construct, id: string)
 ```
 
-- *Type:* aws-cdk-lib.aws_lambda.Function
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="dt-cdk-lib.RestApiConstruct.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="dt-cdk-lib.RestApiConstruct.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.authorizer">authorizer</a></code> | create an authorizer and use it in the followin lambdas until a new authorizer is created. |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.cors">cors</a></code> | enable cors for this API. |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.delete">delete</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.get">get</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.head">head</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.options">options</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.post">post</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.put">put</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.readFrom">readFrom</a></code> | let the last created lambda hace read access to a given construct. |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.writeTo">writeTo</a></code> | let the last created lambda hace write access to a given construct. |
+
+---
+
+##### `toString` <a name="toString" id="dt-cdk-lib.RestApiConstruct.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `authorizer` <a name="authorizer" id="dt-cdk-lib.RestApiConstruct.authorizer"></a>
+
+```typescript
+public authorizer(handlerCode: string): RestApiConstruct
+```
+
+create an authorizer and use it in the followin lambdas until a new authorizer is created.
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.authorizer.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `cors` <a name="cors" id="dt-cdk-lib.RestApiConstruct.cors"></a>
+
+```typescript
+public cors(options?: CorsOptions): RestApiConstruct
+```
+
+enable cors for this API.
+
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.RestApiConstruct.cors.parameter.options"></a>
+
+- *Type:* aws-cdk-lib.aws_apigateway.CorsOptions
+
+---
+
+##### `delete` <a name="delete" id="dt-cdk-lib.RestApiConstruct.delete"></a>
+
+```typescript
+public delete(path: string, handlerCode: string): RestApiConstruct
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.delete.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.delete.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `get` <a name="get" id="dt-cdk-lib.RestApiConstruct.get"></a>
+
+```typescript
+public get(path: string, handlerCode: string): RestApiConstruct
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.get.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.get.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `head` <a name="head" id="dt-cdk-lib.RestApiConstruct.head"></a>
+
+```typescript
+public head(path: string, handlerCode: string): RestApiConstruct
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.head.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.head.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `options` <a name="options" id="dt-cdk-lib.RestApiConstruct.options"></a>
+
+```typescript
+public options(path: string, handlerCode: string): RestApiConstruct
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.options.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.options.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `post` <a name="post" id="dt-cdk-lib.RestApiConstruct.post"></a>
+
+```typescript
+public post(path: string, handlerCode: string): RestApiConstruct
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.post.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.post.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `put` <a name="put" id="dt-cdk-lib.RestApiConstruct.put"></a>
+
+```typescript
+public put(path: string, handlerCode: string): RestApiConstruct
+```
+
+###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.put.parameter.path"></a>
+
+- *Type:* string
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.put.parameter.handlerCode"></a>
+
+- *Type:* string
+
+---
+
+##### `readFrom` <a name="readFrom" id="dt-cdk-lib.RestApiConstruct.readFrom"></a>
+
+```typescript
+public readFrom(construct: Construct): RestApiConstruct
+```
+
+let the last created lambda hace read access to a given construct.
+
+Supported targets:
+- DynamoDB
+
+###### `construct`<sup>Required</sup> <a name="construct" id="dt-cdk-lib.RestApiConstruct.readFrom.parameter.construct"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `writeTo` <a name="writeTo" id="dt-cdk-lib.RestApiConstruct.writeTo"></a>
+
+```typescript
+public writeTo(construct: Construct): RestApiConstruct
+```
+
+let the last created lambda hace write access to a given construct.
+
+Supported targets:
+- DynamoDB
+
+###### `construct`<sup>Required</sup> <a name="construct" id="dt-cdk-lib.RestApiConstruct.writeTo.parameter.construct"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="dt-cdk-lib.RestApiConstruct.isConstruct"></a>
+
+```typescript
+import { RestApiConstruct } from 'dt-cdk-lib'
+
+RestApiConstruct.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="dt-cdk-lib.RestApiConstruct.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#dt-cdk-lib.RestApiConstruct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="dt-cdk-lib.RestApiConstruct.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
 
 ---
 
@@ -430,10 +794,12 @@ new WebAppConstruct(scope: Construct, id: string)
 | --- | --- |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.addAssets">addAssets</a></code> | Use this metod to upload application artifacts add local assets to the remote store (S3 Bucket) be mindfull of size, use this method for small bundles. |
+| <code><a href="#dt-cdk-lib.WebAppConstruct.on">on</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.onOriginRequest">onOriginRequest</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.onOriginResponse">onOriginResponse</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.onViewerRequest">onViewerRequest</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.onViewerResponse">onViewerResponse</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.WebAppConstruct.path">path</a></code> | *No description.* |
 | <code><a href="#dt-cdk-lib.WebAppConstruct.run">run</a></code> | Run local comands before uploading assets and creating infraestructure. |
 
 ---
@@ -469,17 +835,29 @@ after deploying infraestructure
 
 ---
 
+##### `on` <a name="on" id="dt-cdk-lib.WebAppConstruct.on"></a>
+
+```typescript
+public on(eventType: LambdaEdgeEventType, handlerCode: string | string[]): WebAppConstruct
+```
+
+###### `eventType`<sup>Required</sup> <a name="eventType" id="dt-cdk-lib.WebAppConstruct.on.parameter.eventType"></a>
+
+- *Type:* aws-cdk-lib.aws_cloudfront.LambdaEdgeEventType
+
+---
+
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.on.parameter.handlerCode"></a>
+
+- *Type:* string | string[]
+
+---
+
 ##### `onOriginRequest` <a name="onOriginRequest" id="dt-cdk-lib.WebAppConstruct.onOriginRequest"></a>
 
 ```typescript
-public onOriginRequest(path: string, handlerCode: string): void
+public onOriginRequest(handlerCode: string): WebAppConstruct
 ```
-
-###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onOriginRequest.parameter.path"></a>
-
-- *Type:* string
-
----
 
 ###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onOriginRequest.parameter.handlerCode"></a>
 
@@ -490,14 +868,8 @@ public onOriginRequest(path: string, handlerCode: string): void
 ##### `onOriginResponse` <a name="onOriginResponse" id="dt-cdk-lib.WebAppConstruct.onOriginResponse"></a>
 
 ```typescript
-public onOriginResponse(path: string, handlerCode: string): void
+public onOriginResponse(handlerCode: string): WebAppConstruct
 ```
-
-###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onOriginResponse.parameter.path"></a>
-
-- *Type:* string
-
----
 
 ###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onOriginResponse.parameter.handlerCode"></a>
 
@@ -508,14 +880,8 @@ public onOriginResponse(path: string, handlerCode: string): void
 ##### `onViewerRequest` <a name="onViewerRequest" id="dt-cdk-lib.WebAppConstruct.onViewerRequest"></a>
 
 ```typescript
-public onViewerRequest(path: string, handlerCode: string): void
+public onViewerRequest(handlerCode: string): WebAppConstruct
 ```
-
-###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onViewerRequest.parameter.path"></a>
-
-- *Type:* string
-
----
 
 ###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onViewerRequest.parameter.handlerCode"></a>
 
@@ -526,16 +892,22 @@ public onViewerRequest(path: string, handlerCode: string): void
 ##### `onViewerResponse` <a name="onViewerResponse" id="dt-cdk-lib.WebAppConstruct.onViewerResponse"></a>
 
 ```typescript
-public onViewerResponse(path: string, handlerCode: string): void
+public onViewerResponse(handlerCode: string): WebAppConstruct
 ```
 
-###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.WebAppConstruct.onViewerResponse.parameter.path"></a>
+###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onViewerResponse.parameter.handlerCode"></a>
 
 - *Type:* string
 
 ---
 
-###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.WebAppConstruct.onViewerResponse.parameter.handlerCode"></a>
+##### `path` <a name="path" id="dt-cdk-lib.WebAppConstruct.path"></a>
+
+```typescript
+public path(pathPattern: string): WebAppConstruct
+```
+
+###### `pathPattern`<sup>Required</sup> <a name="pathPattern" id="dt-cdk-lib.WebAppConstruct.path.parameter.pathPattern"></a>
 
 - *Type:* string
 
@@ -656,6 +1028,7 @@ const functionOptions: FunctionOptions = { ... }
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.layers">layers</a></code> | <code>string[]</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.name">name</a></code> | <code>string</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.securityGroupIds">securityGroupIds</a></code> | <code>string[]</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.FunctionOptions.property.timeout">timeout</a></code> | <code>aws-cdk-lib.Duration</code> | *No description.* |
 | <code><a href="#dt-cdk-lib.FunctionOptions.property.vpc">vpc</a></code> | <code>string \| aws-cdk-lib.aws_ec2.Vpc</code> | *No description.* |
 
 ---
@@ -697,6 +1070,16 @@ public readonly securityGroupIds: string[];
 ```
 
 - *Type:* string[]
+
+---
+
+##### `timeout`<sup>Optional</sup> <a name="timeout" id="dt-cdk-lib.FunctionOptions.property.timeout"></a>
+
+```typescript
+public readonly timeout: Duration;
+```
+
+- *Type:* aws-cdk-lib.Duration
 
 ---
 

@@ -1,2 +1,2 @@
 
-export * from './gql-api-construct'
+export * from './gql-api-construct';
