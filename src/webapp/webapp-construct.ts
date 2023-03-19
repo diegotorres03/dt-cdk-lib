@@ -23,6 +23,7 @@ export class WebAppConstruct extends Construct {
   // private additionalBehaviors: CloudFront.BehaviorOptions[] = []
   private cdnDistribution: CloudFront.Distribution;
   private defaultOrigin: CloudFrontOrigins.S3Origin;
+  private pathPattern: string = ''
 
   webappBucket: S3.Bucket;
   constructor(scope: Construct, id: string) {
@@ -93,52 +94,49 @@ export class WebAppConstruct extends Construct {
     // exportName: 'distributionId'
 
 
-    //   const webapp = this
+    // const webapp = this
+    // const handler = (ev => console.log(ev)).toString()
+
+    // const { ORIGIN_REQUEST, ORIGIN_RESPONSE, VIEWER_REQUEST, VIEWER_RESPONSE } = WebAppConstruct.EVENT_TYPES
+
+    // webapp.setPath('users/*')
+    //   .on(VIEWER_REQUEST, handler)
+    //   .onOriginRequest(handler)
+    //   .onOriginResponse(handler)
+    //   .onViewerRequest(handler)
+    //   .onViewerResponse(handler)
+
+    // webapp.setPath('auth/*')
+    //   .onOriginRequest(handler)
+    //   .onOriginResponse(handler)
+    //   .onViewerRequest(handler)
+    //   .onViewerResponse(handler)
 
 
-    //   webapp.addAssets('./app')
-    //   webapp.onViewerRequest('users/*', (ev => console.log(ev)).toString())
-    //   webapp.onViewerResponse('users/*', (ev => console.log(ev)).toString())
-    //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
-    //   webapp.onOriginRequest('users/*', (ev => console.log(ev)).toString())
-
-
-    //   const handler = (ev => console.log(ev)).toString()
-
-    //   webapp
-    //     .path('users/*')
-    //     .onOriginRequest(handler)
-    //     .onOriginResponse(handler)
-    //     .onViewerRequest(handler)
-    //     .onViewerResponse(handler)
 
   }
 
+  setPath(pathPattern: string) {
+    this.pathPattern = pathPattern
+    return this
+  }
 
-  // path(path: string) {
-  //   const methods = {
-  //     onViewerRequest: (handlerCode: string) => {
-  //       this.onViewerRequest(path, handlerCode)
-  //       return methods
-  //     },
-  //     onViewerResponse: (handlerCode: string) => {
-  //       this.onViewerResponse(path, handlerCode)
-  //       return methods
-  //     },
-  //     onOriginRequest: (handlerCode: string) => {
-  //       this.onOriginRequest(path, handlerCode)
-  //       return methods
-  //     },
-  //     onOriginResponse: (handlerCode: string) => {
-  //       this.onOriginResponse(path, handlerCode)
-  //       return methods
-  //     },
-  //   }
-  //   return methods
-  // }
 
-  onViewerRequest(path: string, handlerCode: string) {
+  on(eventType: CloudFront.LambdaEdgeEventType, handlerCode: string | string[]): WebAppConstruct {
+    const handlers = Array.isArray(handlerCode) ? handlerCode : [handlerCode]
+    const path = this.pathPattern
 
+    const fns = handlers.map(code => {
+      const fn = new FunctionConstruct(this, `${path}/${eventType}`);
+      fn.handler(code);
+      return fn
+    })
+
+    return this
+  }
+
+  onViewerRequest(handlerCode: string) {
+    const path = this.pathPattern
     const eventType = VIEWER_REQUEST;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
     fn.handler(handlerCode);
@@ -154,17 +152,21 @@ export class WebAppConstruct extends Construct {
         includeBody: true,
       }],
     });
-
+    return this
   }
 
   // [ ] instead of creating the behaviour on each call, can I group them?
-  onViewerResponse(path: string, handlerCode: string) {
+  onViewerResponse(handlerCode: string) {
+    const path = this.pathPattern
 
     const eventType = VIEWER_RESPONSE;
-    const fn = new FunctionConstruct(this, `${path}/${eventType}`);
+    const fnId = `${path}/${eventType}`
+    console.log(fnId)
+    const fn = new FunctionConstruct(this, fnId);
     fn.handler(handlerCode);
 
     if (!fn.handlerFn) throw new Error('handler fn not created');
+
 
 
     // [ ] optimize to reuse this piece of code in the rest
@@ -172,12 +174,15 @@ export class WebAppConstruct extends Construct {
       edgeLambdas: [{
         eventType,
         functionVersion: fn.handlerFn?.currentVersion,
-        includeBody: true,
+        // includeBody: true, // not valid on response
       }],
     });
+    return this
   }
 
-  onOriginRequest(path: string, handlerCode: string) {
+
+  onOriginRequest(handlerCode: string) {
+    const path = this.pathPattern
 
     const eventType = ORIGIN_REQUEST;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
@@ -194,9 +199,11 @@ export class WebAppConstruct extends Construct {
         includeBody: true,
       }],
     });
+    return this
   }
 
-  onOriginResponse(path: string, handlerCode: string) {
+  onOriginResponse(handlerCode: string) {
+    const path = this.pathPattern
 
     const eventType = ORIGIN_RESPONSE;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
@@ -210,9 +217,10 @@ export class WebAppConstruct extends Construct {
       edgeLambdas: [{
         eventType,
         functionVersion: fn.handlerFn?.currentVersion,
-        includeBody: true,
+        // includeBody: true, // not valid on response
       }],
     });
+    return this
   }
 
 

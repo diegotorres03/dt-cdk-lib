@@ -41,7 +41,7 @@ export class FunctionConstruct extends Construct {
   layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
 
-  handlerFn?: Lambda.Function;
+  handlerFn: Lambda.Function // = new Lambda.Function(this, 'empty-fn' + Date.now(), {});
 
   private functionName: string;
 
@@ -105,7 +105,7 @@ export class FunctionConstruct extends Construct {
     const lambdaParams = {
       runtime: Lambda.Runtime.NODEJS_14_X,
       code: getCode(functionCode),
-      timeout: Duration.minutes(1),
+      timeout: Duration.seconds(30),
       layers: this.layersToUse,
       // code: Lambda.Code.fromAsset(lambdaDef.path),
       allowPublicSubnet: vpc ? true : undefined,
@@ -116,6 +116,8 @@ export class FunctionConstruct extends Construct {
     } as Lambda.FunctionProps;
 
     this.handlerFn = new Lambda.Function(this, name + '-handler', lambdaParams);
+
+    if (!this.handlerFn) throw new Error('something went wrong, this.handlerFn should not be empty')
 
     // if (options && Array.isArray(options.access)) {
     //     options.access.forEach(fn => fn(lambda));
