@@ -80,7 +80,7 @@ export class RestApiConstruct extends Construct {
     /**
      * add a webapp construct on cors
      *
-     * @param {Construct} construct
+     * @param {WebAppConstruct} webapp
      * @return {*}  {RestApiConstruct}
      * @memberof RestApiConstruct
      */
@@ -155,15 +155,17 @@ export class RestApiConstruct extends Construct {
 
     private createMethodIntegration(method: string, path: string, handlerCode: string, options?: any) {
 
+        console.log('use authorizer here', this.currentAuthorizer)
         const fn = new FunctionConstruct(this, `${method}_${path}_handler`)
         fn.handler(handlerCode)
         // [ ] deals with options
-
+        
         // [ ] deal with layers
         const integration = new ApiGateway.LambdaIntegration(fn.handlerFn) // {proxy: true}
         this.api.root.resourceForPath(path)
-            .addMethod(method, integration)
-
+        .addMethod(method, integration)
+        
+        this.currentHandler = fn.handlerFn
     }
 
     get(path: string, handlerCode: string): RestApiConstruct {
