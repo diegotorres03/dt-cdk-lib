@@ -2,10 +2,8 @@
 import { Construct } from 'constructs'
 import * as Dynamo from 'aws-cdk-lib/aws-dynamodb'
 import * as ApiGateway from 'aws-cdk-lib/aws-apigateway'
-import { threadId } from 'worker_threads'
 import { FunctionConstruct } from '../../compute'
 import { WebAppConstruct } from '../../webapp/webapp-construct'
-import { Lambda } from 'aws-cdk-lib/aws-ses-actions'
 
 
 const unimplementedError = new Error('this method has not been implemented, feel free to contribute =)')

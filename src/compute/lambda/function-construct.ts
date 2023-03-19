@@ -27,6 +27,7 @@ const { warn } = console;
 export interface FunctionOptions {
   readonly name?: string;
   readonly env?: { [key: string]: string };
+  readonly timeout?: Duration
   // readonly access: Function[];
   readonly vpc?: EC2.Vpc | string;
   readonly securityGroupIds?: string[];
@@ -105,7 +106,7 @@ export class FunctionConstruct extends Construct {
     const lambdaParams = {
       runtime: Lambda.Runtime.NODEJS_14_X,
       code: getCode(functionCode),
-      timeout: Duration.seconds(30),
+      timeout: options.timeout || Duration.seconds(30),
       layers: this.layersToUse,
       // code: Lambda.Code.fromAsset(lambdaDef.path),
       allowPublicSubnet: vpc ? true : undefined,
