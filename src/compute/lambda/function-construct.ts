@@ -42,7 +42,13 @@ export class FunctionConstruct extends Construct {
   layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
 
-  handlerFn: Lambda.Function // = new Lambda.Function(this, 'empty-fn' + Date.now(), {});
+  // this definition in only to avoid initialization error 
+  // src/compute/lambda/function-construct.ts:45:3 - error TS2564: Property 'handlerFn' has no initializer and is not definitely assigned in the constructor.
+  handlerFn: Lambda.Function = new Lambda.Function(this, 'empty-fn' + Date.now(), {
+    runtime: Lambda.Runtime.NODEJS_16_X,
+    code: Lambda.Code.fromInline(`export.handler = event => {console.log(event); reutrn {success:true}}`),
+    handler: 'index.handler',
+  });
 
   private functionName: string;
 

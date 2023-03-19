@@ -126,7 +126,8 @@ export class WebAppConstruct extends Construct {
     const handlers = Array.isArray(handlerCode) ? handlerCode : [handlerCode]
     const path = this.pathPattern
 
-    const fns = handlers.map(code => {
+    // [ ] add permisions to those lambdas
+    handlers.map(code => {
       const fn = new FunctionConstruct(this, `${path}/${eventType}`);
       fn.handler(code);
       return fn

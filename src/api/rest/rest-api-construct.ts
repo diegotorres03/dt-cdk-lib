@@ -1,12 +1,13 @@
 
 import { Construct } from 'constructs'
-import * as Dynamo from 'aws-cdk-lib/aws-dynamodb'
 import * as ApiGateway from 'aws-cdk-lib/aws-apigateway'
+import * as Dynamo from 'aws-cdk-lib/aws-dynamodb'
+import * as Lambda  from 'aws-cdk-lib/aws-lambda'
 import { FunctionConstruct } from '../../compute'
-import { WebAppConstruct } from '../../webapp/webapp-construct'
+// import { WebAppConstruct } from '../../webapp/webapp-construct'
 
 
-const unimplementedError = new Error('this method has not been implemented, feel free to contribute =)')
+// const unimplementedError = new Error('this method has not been implemented, feel free to contribute =)')
 
 
 /**
@@ -19,8 +20,8 @@ const unimplementedError = new Error('this method has not been implemented, feel
  */
 export class RestApiConstruct extends Construct {
 
-    private currentAuthorizer?
-    private currentHandler?
+    private currentAuthorizer?: string // Lambda.Function
+    private currentHandler?: Lambda.Function
     private api: ApiGateway.RestApi
 
 
@@ -84,11 +85,11 @@ export class RestApiConstruct extends Construct {
      * @return {*}  {RestApiConstruct}
      * @memberof RestApiConstruct
      */
-    addToCors(webapp: WebAppConstruct): RestApiConstruct {
-        // const origin = webapp.
-        throw unimplementedError
-        return this
-    }
+    // addToCors(webapp: WebAppConstruct): RestApiConstruct {
+    //     // const origin = webapp.
+    //     throw unimplementedError
+    //     return this
+    // }
 
     /**
      * create an authorizer and use it in the followin lambdas until a new authorizer is created
@@ -121,8 +122,8 @@ export class RestApiConstruct extends Construct {
      * @memberof RestApiConstruct
      */
     readFrom(construct: Construct): RestApiConstruct {
-
-        // if Dynamo
+        if(!this.currentHandler) throw new Error('you need to create a handler function first')
+        // if Dynamo    
         const table = construct as Dynamo.Table;
         table.grantReadData(this.currentHandler)
 
@@ -143,6 +144,7 @@ export class RestApiConstruct extends Construct {
      * @memberof RestApiConstruct
      */
     writeTo(construct: Construct): RestApiConstruct {
+        if(!this.currentHandler) throw new Error('you need to create a handler function first')
 
 
         // if Dynamo
@@ -153,7 +155,7 @@ export class RestApiConstruct extends Construct {
         return this
     }
 
-    private createMethodIntegration(method: string, path: string, handlerCode: string, options?: any) {
+    private createMethodIntegration(method: string, path: string, handlerCode: string) {
 
         console.log('use authorizer here', this.currentAuthorizer)
         const fn = new FunctionConstruct(this, `${method}_${path}_handler`)
