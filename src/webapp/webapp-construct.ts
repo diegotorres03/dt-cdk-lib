@@ -120,13 +120,13 @@ export class WebAppConstruct extends Construct {
     return this;
   }
   
-  readFrom(construct: Construct): WebAppConstruct {
-    // if (!this.currentHandler) throw new Error('you need to create a handler function first');
-    // // if Dynamo
-    // const table = construct as Dynamo.Table;
-    // table.grantReadData(this.currentHandler);
-    return this
-  }
+  // readFrom(construct: Construct): WebAppConstruct {
+  //   // if (!this.currentHandler) throw new Error('you need to create a handler function first');
+  //   // // if Dynamo
+  //   // const table = construct as Dynamo.Table;
+  //   // table.grantReadData(this.currentHandler);
+  //   return this
+  // }
 
   on(eventType: CloudFront.LambdaEdgeEventType, handlerCode: string | string[]): WebAppConstruct {
     const handlers = Array.isArray(handlerCode) ? handlerCode : [handlerCode];
