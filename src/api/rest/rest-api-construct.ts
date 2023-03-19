@@ -8,6 +8,8 @@ import { WebAppConstruct } from '../../webapp/webapp-construct'
 import { Lambda } from 'aws-cdk-lib/aws-ses-actions'
 
 
+const unimplementedError = new Error('this method has not been implemented, feel free to contribute =)')
+
 
 /**
  *
@@ -86,6 +88,7 @@ export class RestApiConstruct extends Construct {
      */
     addToCors(webapp: WebAppConstruct): RestApiConstruct {
         // const origin = webapp.
+        throw unimplementedError
         return this
     }
 
@@ -166,33 +169,33 @@ export class RestApiConstruct extends Construct {
     }
 
     get(path: string, handlerCode: string): RestApiConstruct {
-        const fn = new FunctionConstruct(this, `${path}`)
+        this.createMethodIntegration('GET', path, handlerCode)
         return this
     }
 
     post(path: string, handlerCode: string): RestApiConstruct {
-
+        this.createMethodIntegration('POST', path, handlerCode)
         return this
     }
 
     put(path: string, handlerCode: string): RestApiConstruct {
-
+        this.createMethodIntegration('PUT', path, handlerCode)
         return this
     }
 
     delete(path: string, handlerCode: string): RestApiConstruct {
-
+        this.createMethodIntegration('DELETE', path, handlerCode)
         return this
     }
 
 
     options(path: string, handlerCode: string): RestApiConstruct {
-
+        this.createMethodIntegration('OPTIONS', path, handlerCode)
         return this
     }
 
     head(path: string, handlerCode: string): RestApiConstruct {
-
+        this.createMethodIntegration('HEAD', path, handlerCode)
         return this
     }
 
