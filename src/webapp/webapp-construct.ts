@@ -15,7 +15,7 @@ import { FunctionConstruct } from '../compute';
 
 const { ORIGIN_REQUEST, ORIGIN_RESPONSE, VIEWER_REQUEST, VIEWER_RESPONSE } = CloudFront.LambdaEdgeEventType;
 
-
+// https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/lambda-examples.html#lambda-examples-static-web-server
 export class WebAppConstruct extends Construct {
 
   static readonly EVENT_TYPES = CloudFront.LambdaEdgeEventType;
@@ -119,7 +119,7 @@ export class WebAppConstruct extends Construct {
     this.pathPattern = pathPattern;
     return this;
   }
-  
+
   // readFrom(construct: Construct): WebAppConstruct {
   //   // if (!this.currentHandler) throw new Error('you need to create a handler function first');
   //   // // if Dynamo
