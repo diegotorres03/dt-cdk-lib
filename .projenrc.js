@@ -2,7 +2,7 @@ const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkConstructLibrary({
   author: 'Diego Torres',
   authorAddress: 'diegotorre0303s@gmail.com',
-  cdkVersion: '2.38.1',
+  cdkVersion: '2.69.0',
   defaultReleaseBranch: 'main',
   name: 'dt-cdk-lib',
   repositoryUrl: 'https://github.com/diegotorre0303s/22-dt-cdk-lib.git',
