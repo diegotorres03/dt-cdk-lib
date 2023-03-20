@@ -545,10 +545,16 @@ Returns a string representation of this construct.
 ##### `authorizer` <a name="authorizer" id="dt-cdk-lib.RestApiConstruct.authorizer"></a>
 
 ```typescript
-public authorizer(handlerCode: string): RestApiConstruct
+public authorizer(name: string, handlerCode: string): RestApiConstruct
 ```
 
 create an authorizer and use it in the followin lambdas until a new authorizer is created.
+
+###### `name`<sup>Required</sup> <a name="name" id="dt-cdk-lib.RestApiConstruct.authorizer.parameter.name"></a>
+
+- *Type:* string
+
+---
 
 ###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.authorizer.parameter.handlerCode"></a>
 
