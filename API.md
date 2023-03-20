@@ -2,98 +2,6 @@
 
 ## Constructs <a name="Constructs" id="Constructs"></a>
 
-### AppSyncConstruct <a name="AppSyncConstruct" id="dt-cdk-lib.AppSyncConstruct"></a>
-
-#### Initializers <a name="Initializers" id="dt-cdk-lib.AppSyncConstruct.Initializer"></a>
-
-```typescript
-import { AppSyncConstruct } from 'dt-cdk-lib'
-
-new AppSyncConstruct(scope: Construct, id: string)
-```
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#dt-cdk-lib.AppSyncConstruct.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
-| <code><a href="#dt-cdk-lib.AppSyncConstruct.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
-
----
-
-##### `scope`<sup>Required</sup> <a name="scope" id="dt-cdk-lib.AppSyncConstruct.Initializer.parameter.scope"></a>
-
-- *Type:* constructs.Construct
-
----
-
-##### `id`<sup>Required</sup> <a name="id" id="dt-cdk-lib.AppSyncConstruct.Initializer.parameter.id"></a>
-
-- *Type:* string
-
----
-
-#### Methods <a name="Methods" id="Methods"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#dt-cdk-lib.AppSyncConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
-
----
-
-##### `toString` <a name="toString" id="dt-cdk-lib.AppSyncConstruct.toString"></a>
-
-```typescript
-public toString(): string
-```
-
-Returns a string representation of this construct.
-
-#### Static Functions <a name="Static Functions" id="Static Functions"></a>
-
-| **Name** | **Description** |
-| --- | --- |
-| <code><a href="#dt-cdk-lib.AppSyncConstruct.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
-
----
-
-##### ~~`isConstruct`~~ <a name="isConstruct" id="dt-cdk-lib.AppSyncConstruct.isConstruct"></a>
-
-```typescript
-import { AppSyncConstruct } from 'dt-cdk-lib'
-
-AppSyncConstruct.isConstruct(x: any)
-```
-
-Checks if `x` is a construct.
-
-###### `x`<sup>Required</sup> <a name="x" id="dt-cdk-lib.AppSyncConstruct.isConstruct.parameter.x"></a>
-
-- *Type:* any
-
-Any object.
-
----
-
-#### Properties <a name="Properties" id="Properties"></a>
-
-| **Name** | **Type** | **Description** |
-| --- | --- | --- |
-| <code><a href="#dt-cdk-lib.AppSyncConstruct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
-
----
-
-##### `node`<sup>Required</sup> <a name="node" id="dt-cdk-lib.AppSyncConstruct.property.node"></a>
-
-```typescript
-public readonly node: Node;
-```
-
-- *Type:* constructs.Node
-
-The tree node.
-
----
-
-
 ### DynamoCostruct <a name="DynamoCostruct" id="dt-cdk-lib.DynamoCostruct"></a>
 
 #### Initializers <a name="Initializers" id="dt-cdk-lib.DynamoCostruct.Initializer"></a>
@@ -487,6 +395,170 @@ public readonly layersToUse: LayerVersion[];
 ---
 
 
+### GraphQlApiConstruct <a name="GraphQlApiConstruct" id="dt-cdk-lib.GraphQlApiConstruct"></a>
+
+#### Initializers <a name="Initializers" id="dt-cdk-lib.GraphQlApiConstruct.Initializer"></a>
+
+```typescript
+import { GraphQlApiConstruct } from 'dt-cdk-lib'
+
+new GraphQlApiConstruct(scope: Construct, id: string)
+```
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.Initializer.parameter.scope">scope</a></code> | <code>constructs.Construct</code> | *No description.* |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.Initializer.parameter.id">id</a></code> | <code>string</code> | *No description.* |
+
+---
+
+##### `scope`<sup>Required</sup> <a name="scope" id="dt-cdk-lib.GraphQlApiConstruct.Initializer.parameter.scope"></a>
+
+- *Type:* constructs.Construct
+
+---
+
+##### `id`<sup>Required</sup> <a name="id" id="dt-cdk-lib.GraphQlApiConstruct.Initializer.parameter.id"></a>
+
+- *Type:* string
+
+---
+
+#### Methods <a name="Methods" id="Methods"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.toString">toString</a></code> | Returns a string representation of this construct. |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.addToSchema">addToSchema</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.done">done</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.mutation">mutation</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.query">query</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.schema">schema</a></code> | *No description.* |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.subscription">subscription</a></code> | *No description.* |
+
+---
+
+##### `toString` <a name="toString" id="dt-cdk-lib.GraphQlApiConstruct.toString"></a>
+
+```typescript
+public toString(): string
+```
+
+Returns a string representation of this construct.
+
+##### `addToSchema` <a name="addToSchema" id="dt-cdk-lib.GraphQlApiConstruct.addToSchema"></a>
+
+```typescript
+public addToSchema(fragment: string): GraphQlApiConstruct
+```
+
+###### `fragment`<sup>Required</sup> <a name="fragment" id="dt-cdk-lib.GraphQlApiConstruct.addToSchema.parameter.fragment"></a>
+
+- *Type:* string
+
+---
+
+##### `done` <a name="done" id="dt-cdk-lib.GraphQlApiConstruct.done"></a>
+
+```typescript
+public done(): void
+```
+
+##### `mutation` <a name="mutation" id="dt-cdk-lib.GraphQlApiConstruct.mutation"></a>
+
+```typescript
+public mutation(name: string): GraphQlApiConstruct
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="dt-cdk-lib.GraphQlApiConstruct.mutation.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `query` <a name="query" id="dt-cdk-lib.GraphQlApiConstruct.query"></a>
+
+```typescript
+public query(name: string): GraphQlApiConstruct
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="dt-cdk-lib.GraphQlApiConstruct.query.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+##### `schema` <a name="schema" id="dt-cdk-lib.GraphQlApiConstruct.schema"></a>
+
+```typescript
+public schema(value: string): GraphQlApiConstruct
+```
+
+###### `value`<sup>Required</sup> <a name="value" id="dt-cdk-lib.GraphQlApiConstruct.schema.parameter.value"></a>
+
+- *Type:* string
+
+---
+
+##### `subscription` <a name="subscription" id="dt-cdk-lib.GraphQlApiConstruct.subscription"></a>
+
+```typescript
+public subscription(name: string): GraphQlApiConstruct
+```
+
+###### `name`<sup>Required</sup> <a name="name" id="dt-cdk-lib.GraphQlApiConstruct.subscription.parameter.name"></a>
+
+- *Type:* string
+
+---
+
+#### Static Functions <a name="Static Functions" id="Static Functions"></a>
+
+| **Name** | **Description** |
+| --- | --- |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.isConstruct">isConstruct</a></code> | Checks if `x` is a construct. |
+
+---
+
+##### ~~`isConstruct`~~ <a name="isConstruct" id="dt-cdk-lib.GraphQlApiConstruct.isConstruct"></a>
+
+```typescript
+import { GraphQlApiConstruct } from 'dt-cdk-lib'
+
+GraphQlApiConstruct.isConstruct(x: any)
+```
+
+Checks if `x` is a construct.
+
+###### `x`<sup>Required</sup> <a name="x" id="dt-cdk-lib.GraphQlApiConstruct.isConstruct.parameter.x"></a>
+
+- *Type:* any
+
+Any object.
+
+---
+
+#### Properties <a name="Properties" id="Properties"></a>
+
+| **Name** | **Type** | **Description** |
+| --- | --- | --- |
+| <code><a href="#dt-cdk-lib.GraphQlApiConstruct.property.node">node</a></code> | <code>constructs.Node</code> | The tree node. |
+
+---
+
+##### `node`<sup>Required</sup> <a name="node" id="dt-cdk-lib.GraphQlApiConstruct.property.node"></a>
+
+```typescript
+public readonly node: Node;
+```
+
+- *Type:* constructs.Node
+
+The tree node.
+
+---
+
+
 ### RestApiConstruct <a name="RestApiConstruct" id="dt-cdk-lib.RestApiConstruct"></a>
 
 #### Initializers <a name="Initializers" id="dt-cdk-lib.RestApiConstruct.Initializer"></a>
@@ -579,7 +651,7 @@ enable cors for this API.
 ##### `delete` <a name="delete" id="dt-cdk-lib.RestApiConstruct.delete"></a>
 
 ```typescript
-public delete(path: string, handlerCode: string): RestApiConstruct
+public delete(path: string, handlerCode: string, options?: FunctionOptions): RestApiConstruct
 ```
 
 ###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.delete.parameter.path"></a>
@@ -594,10 +666,16 @@ public delete(path: string, handlerCode: string): RestApiConstruct
 
 ---
 
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.RestApiConstruct.delete.parameter.options"></a>
+
+- *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
+
+---
+
 ##### `get` <a name="get" id="dt-cdk-lib.RestApiConstruct.get"></a>
 
 ```typescript
-public get(path: string, handlerCode: string): RestApiConstruct
+public get(path: string, handlerCode: string, options?: FunctionOptions): RestApiConstruct
 ```
 
 ###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.get.parameter.path"></a>
@@ -612,10 +690,16 @@ public get(path: string, handlerCode: string): RestApiConstruct
 
 ---
 
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.RestApiConstruct.get.parameter.options"></a>
+
+- *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
+
+---
+
 ##### `head` <a name="head" id="dt-cdk-lib.RestApiConstruct.head"></a>
 
 ```typescript
-public head(path: string, handlerCode: string): RestApiConstruct
+public head(path: string, handlerCode: string, options?: FunctionOptions): RestApiConstruct
 ```
 
 ###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.head.parameter.path"></a>
@@ -630,10 +714,16 @@ public head(path: string, handlerCode: string): RestApiConstruct
 
 ---
 
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.RestApiConstruct.head.parameter.options"></a>
+
+- *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
+
+---
+
 ##### `options` <a name="options" id="dt-cdk-lib.RestApiConstruct.options"></a>
 
 ```typescript
-public options(path: string, handlerCode: string): RestApiConstruct
+public options(path: string, handlerCode: string, options?: FunctionOptions): RestApiConstruct
 ```
 
 ###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.options.parameter.path"></a>
@@ -648,10 +738,16 @@ public options(path: string, handlerCode: string): RestApiConstruct
 
 ---
 
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.RestApiConstruct.options.parameter.options"></a>
+
+- *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
+
+---
+
 ##### `post` <a name="post" id="dt-cdk-lib.RestApiConstruct.post"></a>
 
 ```typescript
-public post(path: string, handlerCode: string): RestApiConstruct
+public post(path: string, handlerCode: string, options?: FunctionOptions): RestApiConstruct
 ```
 
 ###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.post.parameter.path"></a>
@@ -666,10 +762,16 @@ public post(path: string, handlerCode: string): RestApiConstruct
 
 ---
 
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.RestApiConstruct.post.parameter.options"></a>
+
+- *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
+
+---
+
 ##### `put` <a name="put" id="dt-cdk-lib.RestApiConstruct.put"></a>
 
 ```typescript
-public put(path: string, handlerCode: string): RestApiConstruct
+public put(path: string, handlerCode: string, options?: FunctionOptions): RestApiConstruct
 ```
 
 ###### `path`<sup>Required</sup> <a name="path" id="dt-cdk-lib.RestApiConstruct.put.parameter.path"></a>
@@ -681,6 +783,12 @@ public put(path: string, handlerCode: string): RestApiConstruct
 ###### `handlerCode`<sup>Required</sup> <a name="handlerCode" id="dt-cdk-lib.RestApiConstruct.put.parameter.handlerCode"></a>
 
 - *Type:* string
+
+---
+
+###### `options`<sup>Optional</sup> <a name="options" id="dt-cdk-lib.RestApiConstruct.put.parameter.options"></a>
+
+- *Type:* <a href="#dt-cdk-lib.FunctionOptions">FunctionOptions</a>
 
 ---
 
