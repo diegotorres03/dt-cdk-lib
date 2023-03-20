@@ -7,6 +7,7 @@ import {
   aws_cloudfront_origins as CloudFrontOrigins,
   CfnOutput,
   RemovalPolicy,
+  Duration,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 
@@ -146,7 +147,7 @@ export class WebAppConstruct extends Construct {
     const path = this.pathPattern;
     const eventType = VIEWER_REQUEST;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
-    fn.handler(handlerCode);
+    fn.handler(handlerCode, {timeout: Duration.seconds(3)});
 
     if (!fn.handlerFn) throw new Error('handler fn not created');
 
@@ -170,7 +171,7 @@ export class WebAppConstruct extends Construct {
     const fnId = `${path}/${eventType}`;
     console.log(fnId);
     const fn = new FunctionConstruct(this, fnId);
-    fn.handler(handlerCode);
+    fn.handler(handlerCode, {timeout: Duration.seconds(3)});
 
     if (!fn.handlerFn) throw new Error('handler fn not created');
 
@@ -192,7 +193,7 @@ export class WebAppConstruct extends Construct {
 
     const eventType = ORIGIN_REQUEST;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
-    fn.handler(handlerCode);
+    fn.handler(handlerCode, {timeout: Duration.seconds(3)});
 
     if (!fn.handlerFn) throw new Error('handler fn not created');
 
@@ -213,7 +214,7 @@ export class WebAppConstruct extends Construct {
 
     const eventType = ORIGIN_RESPONSE;
     const fn = new FunctionConstruct(this, `${path}/${eventType}`);
-    fn.handler(handlerCode);
+    fn.handler(handlerCode, {timeout: Duration.seconds(3)});
 
     if (!fn.handlerFn) throw new Error('handler fn not created');
 
