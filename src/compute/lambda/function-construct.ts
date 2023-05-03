@@ -6,6 +6,7 @@ import {
   RemovalPolicy,
   Duration,
 } from 'aws-cdk-lib';
+import * as IAM from 'aws-cdk-lib/aws-iam'
 import { Construct } from 'constructs';
 
 const { warn } = console;
@@ -39,16 +40,22 @@ export class FunctionConstruct extends Construct {
   // layers: Map<string, Lambda.LayerVersion> = new Map();
   // layersToUse: Set<Lambda.LayerVersion> = new Set();
 
+  get arn(): string {
+    return this.handlerFn.functionArn
+  }
+
   layers: { [layerName: string]: Lambda.LayerVersion } = {};
   layersToUse: Array<Lambda.LayerVersion> = [];
 
   // this definition in only to avoid initialization error
   // src/compute/lambda/function-construct.ts:45:3 - error TS2564: Property 'handlerFn' has no initializer and is not definitely assigned in the constructor.
-  handlerFn: Lambda.Function = new Lambda.Function(this, 'empty-fn' + Date.now(), {
-    runtime: Lambda.Runtime.NODEJS_16_X,
-    code: Lambda.Code.fromInline('export.handler = event => {console.log(event); reutrn {success:true}}'),
-    handler: 'index.handler',
-  });
+  // @ts-ignore
+  handlerFn: Lambda.Function
+  //   handlerFn: Lambda.Function = new Lambda.Function(this, 'empty-fn' + Date.now(), {
+  //   runtime: Lambda.Runtime.NODEJS_16_X,
+  //   code: Lambda.Code.fromInline('export.handler = event => {console.log(event); reutrn {success:true}}'),
+  //   handler: 'index.handler',
+  // });
 
   private functionName: string;
 
@@ -83,6 +90,21 @@ export class FunctionConstruct extends Construct {
     this.layersToUse.push(layer);
   }
 
+
+  /**
+   *
+   * @deprecated
+   * @param {string} functionCode
+   * @param {FunctionOptions} [options={}]
+   * @return {*} 
+   * @memberof FunctionConstruct
+   */
+  handler(functionCode: string, options: FunctionOptions = {}) {
+    console.warn('deprecated, use .code instead')
+    return this.code(functionCode, options)
+  }
+
+
   /**
    * here is where you add or reference the lambda code
    *
@@ -92,7 +114,7 @@ export class FunctionConstruct extends Construct {
    * @return {*}
    * @memberof FunctionConstruct
    */
-  handler(functionCode: string, options: FunctionOptions = {}) {
+  code(functionCode: string, options: FunctionOptions = {}) {
     const name = options.name ?? this.functionName;
 
     let vpc;
@@ -151,6 +173,26 @@ export class FunctionConstruct extends Construct {
     }));
 
     table.grantStreamRead(this.handlerFn);
+  }
+
+  createServiceRole(name: string, servicePrincipal: string) {
+    const involeLambdaPolicy = new IAM.PolicyDocument({
+      statements: [
+        new IAM.PolicyStatement({
+          effect: IAM.Effect.ALLOW,
+          actions: ['lambda:InvokeFunction'],
+          resources: [this.arn],
+        }),
+      ],
+    })
+
+    const invokeLambdaRole = new IAM.Role(this, name, {
+      assumedBy: new IAM.ServicePrincipal(servicePrincipal),
+      inlinePolicies: {
+        InvokeLambda: involeLambdaPolicy,
+      },
+    })
+    return { invokeLambdaRole, involeLambdaPolicy }
   }
 
 }
