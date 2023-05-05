@@ -1,17 +1,16 @@
 import { writeFileSync } from 'fs';
 import * as AppSync from 'aws-cdk-lib/aws-appsync';
-// import * as DynamoDB from 'aws-cdk-lib/aws-dynamodb'
+import * as DynamoDB from 'aws-cdk-lib/aws-dynamodb';
 
 import * as logs from 'aws-cdk-lib/aws-logs';
 import { Construct } from 'constructs';
 import { FunctionOptions, FunctionConstruct } from '../../compute';
-import { ServicePrincipal } from 'aws-cdk-lib/aws-iam';
 
 
 // https://docs.aws.amazon.com/cdk/api/v2/docs/aws-cdk-lib.aws_appsync-readme.html
 
 
-const { API_KEY, IAM, LAMBDA, OIDC, USER_POOL } = AppSync.AuthorizationType
+const { API_KEY, LAMBDA, } = AppSync.AuthorizationType
 export class GraphQlApiConstruct extends Construct {
 
   // private api?: AppSync.GraphqlApi;
@@ -25,6 +24,8 @@ export class GraphQlApiConstruct extends Construct {
   private name: string;
 
   private fieldName = '';
+  private currentDataSource?: AppSync.DynamoDbDataSource
+  private dataSourcesMap: WeakMap<Construct, AppSync.DynamoDbDataSource> = new WeakMap()
 
   // private authorizerConfig: AppSync.AuthorizationMode = {
   private authorizerConfig = {
@@ -103,19 +104,46 @@ export class GraphQlApiConstruct extends Construct {
   }
 
   // gql operations
+  private createLambdaDataSource(name: string, handlerCode?: string, options?: FunctionOptions) {
 
-  mutation(name: string): GraphQlApiConstruct {
+    const resolverName = `${this.currentOperation}_${this.fieldName}`
+
+    if (!handlerCode) return this
+
+    const handler = new FunctionConstruct(this, `${resolverName}_handler`)
+    handler.code(handlerCode, options)
+    const { invokeLambdaRole } = handler.createServiceRole(`${resolverName}_role`, 'appsync.amazonaws.com')
+
+    const dataSource = new AppSync.LambdaDataSource(this, `${resolverName}_datasource`, {
+      api: this.api,
+      name: resolverName,
+      lambdaFunction: handler.handlerFn,
+      serviceRole: invokeLambdaRole,
+    })
+
+    dataSource.createResolver(`resolver_lambda_${name}`, {
+      fieldName: name,
+      typeName: this.currentOperation,
+    })
+    return this
+  }
+
+  mutation(name: string, handlerCode?: string, options?: FunctionOptions): GraphQlApiConstruct {
     this.currentOperation = 'Mutation';
     this.fieldName = name;
+
+    this.createLambdaDataSource(name, handlerCode, options)
 
     return this;
   }
 
-  query(name: string, handlerCode: string, options?: FunctionOptions): GraphQlApiConstruct {
+  query(name: string, handlerCode?: string, options?: FunctionOptions): GraphQlApiConstruct {
     this.currentOperation = 'Query';
     this.fieldName = name;
 
     const resolverName = `${this.currentOperation}_${this.fieldName}`
+
+    if (!handlerCode) return this
 
     const handler = new FunctionConstruct(this, `${resolverName}_handler`)
     handler.code(handlerCode, options)
@@ -150,6 +178,26 @@ export class GraphQlApiConstruct extends Construct {
     console.log(this.api);
     console.log(this.fieldName);
     console.log(this.currentOperation);
+  }
+
+
+  /**
+   * create a new DynamoDB Table DataSource 
+   * to be used as datasource for resolvers
+   *
+   * @param {DynamoDB.Table} table
+   * @return {*} 
+   * @memberof GraphQlApiConstruct
+   */
+  table(table: DynamoDB.Table) {
+    // [ ] check if DataSource is already there
+    if(this.dataSourcesMap)
+    // [x] add a new DynamoDB DataSource
+    // [x] select this datasource to be used on next operations
+    this.currentDataSource = this.api.addDynamoDbDataSource(`${table.tableName}_dynamo_ds`, table)
+    if(!this.currentDataSource) throw new Error('Empty DataSource')
+    this.dataSourcesMap.set(table, this.currentDataSource)
+    return this
   }
 
   // resolvers

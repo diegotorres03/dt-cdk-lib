@@ -50,14 +50,14 @@ export class RestApiConstruct extends Construct {
   }
 
   /**
-         * enable cors for this API
-         *
-         * @author Diego Tores <diegotorres0303@gmail.com>
-         *
-         * @param {ApiGateway.CorsOptions} [options]
-         * @return {*}  {RestApiConstruct}
-         * @memberof RestApiConstruct
-         */
+   * enable cors for this API
+   *
+   * @author Diego Tores <diegotorres0303@gmail.com>
+   *
+   * @param {ApiGateway.CorsOptions} [options]
+   * @return {*}  {RestApiConstruct}
+   * @memberof RestApiConstruct
+   */
   cors(options?: ApiGateway.CorsOptions): RestApiConstruct {
     const defaultOptions = {
       allowOrigins: ApiGateway.Cors.ALL_ORIGINS,
@@ -75,12 +75,12 @@ export class RestApiConstruct extends Construct {
   }
 
   /**
-         * add a webapp construct on cors
-         *
-         * @param {WebAppConstruct} webapp
-         * @return {*}  {RestApiConstruct}
-         * @memberof RestApiConstruct
-         */
+   * add a webapp construct on cors
+   *
+   * @param {WebAppConstruct} webapp
+   * @return {*}  {RestApiConstruct}
+   * @memberof RestApiConstruct
+   */
   // addToCors(webapp: WebAppConstruct): RestApiConstruct {
   //     // const origin = webapp.
   //     throw unimplementedError
@@ -88,17 +88,17 @@ export class RestApiConstruct extends Construct {
   // }
 
   /**
-         * create an authorizer and use it in the followin lambdas until a new authorizer is created
-         *
-         * @author Diego Tores <diegotorres0303@gmail.com>
-         *
-         * @param {string} handlerCode
-         * @return {*}  {RestApiConstruct}
-         * @memberof RestApiConstruct
-         */
+   * create an authorizer and use it in the followin lambdas until a new authorizer is created
+   *
+   * @author Diego Tores <diegotorres0303@gmail.com>
+   *
+   * @param {string} handlerCode
+   * @return {*}  {RestApiConstruct}
+   * @memberof RestApiConstruct
+   */
   authorizer(name: string, handlerCode: string): RestApiConstruct {
     const authFn = new FunctionConstruct(this, `${name}_authorizer`);
-    authFn.handler(handlerCode);
+    authFn.code(handlerCode);
 
     const authorizer = new ApiGateway.RequestAuthorizer(this, 'MyAuthorizer', {
       handler: authFn.handlerFn,
@@ -115,17 +115,17 @@ export class RestApiConstruct extends Construct {
 
 
   /**
-         * let the last created lambda hace read access to a given construct
-         *
-         * Supported targets:
-         * - DynamoDB
-         *
-         * @author Diego Tores <diegotorres0303@gmail.com>
-         *
-         * @param {Construct} construct
-         * @return {*}  {RestApiConstruct}
-         * @memberof RestApiConstruct
-         */
+   * let the last created lambda hace read access to a given construct
+   *
+   * Supported targets:
+   * - DynamoDB
+   *
+   * @author Diego Tores <diegotorres0303@gmail.com>
+   *
+   * @param {Construct} construct
+   * @return {*}  {RestApiConstruct}
+   * @memberof RestApiConstruct
+   */
   readFrom(construct: Construct): RestApiConstruct {
     if (!this.currentHandler) throw new Error('you need to create a handler function first');
 
@@ -138,17 +138,17 @@ export class RestApiConstruct extends Construct {
   }
 
   /**
-         * let the last created lambda hace write access to a given construct
-         *
-         * Supported targets:
-         * - DynamoDB
-         *
-         * @author Diego Tores <diegotorres0303@gmail.com>
-         *
-         * @param {Construct} construct
-         * @return {*}  {RestApiConstruct}
-         * @memberof RestApiConstruct
-         */
+   * let the last created lambda hace write access to a given construct
+   *
+   * Supported targets:
+   * - DynamoDB
+   *
+   * @author Diego Tores <diegotorres0303@gmail.com>
+   *
+   * @param {Construct} construct
+   * @return {*}  {RestApiConstruct}
+   * @memberof RestApiConstruct
+   */
   writeTo(construct: Construct): RestApiConstruct {
     if (!this.currentHandler) throw new Error('you need to create a handler function first');
 
@@ -165,7 +165,7 @@ export class RestApiConstruct extends Construct {
 
     console.log('use authorizer here', this.currentAuthorizer);
     const fn = new FunctionConstruct(this, `${method}_${path}_handler`);
-    fn.handler(handlerCode, options);
+    fn.code(handlerCode, options);
     // [ ] deals with options
 
     // [ ] deal with layers
@@ -196,7 +196,6 @@ export class RestApiConstruct extends Construct {
     this.createMethodIntegration('DELETE', path, handlerCode, options);
     return this;
   }
-
 
   options(path: string, handlerCode: string, options?: FunctionOptions): RestApiConstruct {
     this.createMethodIntegration('OPTIONS', path, handlerCode, options);

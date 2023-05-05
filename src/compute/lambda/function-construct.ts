@@ -93,7 +93,7 @@ export class FunctionConstruct extends Construct {
 
   /**
    *
-   * @deprecated
+   * @deprecated use .code() instead
    * @param {string} functionCode
    * @param {FunctionOptions} [options={}]
    * @return {*} 
